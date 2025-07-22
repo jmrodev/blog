@@ -2,25 +2,30 @@
 document.addEventListener('DOMContentLoaded', () => {
   const contentArea = document.getElementById('content-area');
   const pageOrder = [
-    'src/instalacion/preparacion.html',
-    'src/instalacion/fuentes.html',
-    'src/instalacion/neovim_nvchad.html',
-    'src/configuracion/estructura.html',
-    'src/configuracion/plugins.html',
-    'src/configuracion/lsp.html',
-    'src/configuracion/mappings.html',
-    'src/configuracion/temas.html',
-    'src/configuracion/snippets.html',
-    'src/productividad/atajos.html',
-    'src/productividad/debug.html',
-    'src/productividad/tips.html',
-    'src/comunidad/recursos.html'
+    '/src/instalacion/preparacion.html',
+    '/src/instalacion/fuentes.html',
+    '/src/instalacion/neovim_nvchad.html',
+    '/src/configuracion/estructura.html',
+    '/src/configuracion/plugins.html',
+    '/src/configuracion/lsp.html',
+    '/src/configuracion/mappings.html',
+    '/src/configuracion/temas.html',
+    '/src/configuracion/snippets.html',
+    '/src/productividad/atajos.html',
+    '/src/productividad/debug.html',
+    '/src/productividad/tips.html',
+    '/src/comunidad/recursos.html'
   ];
 
   // Función para cargar contenido
   async function loadContent(url, pushState = true) {
     try {
-      const response = await fetch(url);
+      // Normaliza la ruta para evitar acumulación de prefijos
+      let fetchUrl = url;
+      if (!fetchUrl.startsWith('/')) {
+        fetchUrl = '/' + fetchUrl;
+      }
+      const response = await fetch(fetchUrl);
       const html = await response.text();
 
       const parser = new DOMParser();
@@ -126,9 +131,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Cargar la página inicial al cargar el router.js
-  let initialPath = window.location.pathname.split('/blog/')[1] || 'index.html';
-  if (initialPath === 'index.html' || initialPath === '') {
-    initialPath = 'src/instalacion/preparacion.html';
+  let initialPath = window.location.pathname.split('/blog')[1] || '/index.html';
+  if (initialPath === '/index.html' || initialPath === '/') {
+    initialPath = '/src/instalacion/preparacion.html';
     history.replaceState({ path: initialPath }, '', initialPath);
   } else {
     history.replaceState({ path: initialPath }, '', initialPath); // Ensure initial URL is part of history state
