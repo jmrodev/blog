@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instalación de Neovim y NvChad</title>
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+  <div class="nav">
+    <a href="fuentes.html">&larr; Anterior</a>
+    <a class="center" href="../../index.html">Home</a>
+    <a href="../configuracion/estructura.html">Siguiente &rarr;</a>
+  </div>
+  <h1>Instalación de Neovim y NvChad</h1>
+  <section>
+    <h2>¿Starter o core?</h2>
+    <ul>
+      <li><b>starter</b>: Repositorio recomendado para usuarios. Es la base personalizable.</li>
+      <li><b>NvChad core</b>: Solo para desarrollo o contribución al proyecto.</li>
+    </ul>
+    <h2>Instalación rápida</h2>
+    <pre>git clone https://github.com/NvChad/starter ~/.config/nvim --depth 1
+nvim</pre>
+    <h2>¿Qué ocurre al iniciar?</h2>
+    <ul>
+      <li>Se descargan e instalan los plugins y temas básicos.</li>
+      <li>Verás una ventana de instalación (cierra con <kbd>q</kbd> cuando termine).</li>
+      <li>La configuración es mínima y lista para personalizar.</li>
+    </ul>
+    <h2>Bootstrap explicado</h2>
+    <pre>vim.g.base46_cache = vim.fn.stdpath "data" .. "/nvchad/base46/"
+vim.g.mapleader = " "
+
+-- bootstrap lazy and all plugins
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  local repo = "https://github.com/folke/lazy.nvim.git"
+  vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
+end
+vim.opt.rtp:prepend(lazypath)
+local lazy_config = require "configs.lazy"
+require("lazy").setup({
+  { "NvChad/NvChad", lazy = false, branch = "v2.5", import = "nvchad.plugins" },
+  { import = "plugins" },
+}, lazy_config)
+</pre>
+    <h2>Estructura inicial</h2>
+    <pre>
+~/.config/nvim/
+├── init.lua
+├── lazy-lock.json
+├── LICENSE
+├── lua/
+│   ├── chadrc.lua
+│   ├── configs/
+│   ├── mappings.lua
+│   ├── options.lua
+│   └── plugins/
+└── README.md
+</pre>
+    <h2>Tips</h2>
+    <ul>
+      <li>Si algo falla, borra <code>~/.config/nvim</code> y repite el proceso.</li>
+      <li>Consulta la <a href="https://nvchad.com/docs/quickstart/install" target="_blank">guía oficial</a> para más ayuda.</li>
+    </ul>
+  </section>
+  <div class="nav">
+    <a href="fuentes.html">&larr; Anterior</a>
+    <a class="center" href="../../index.html">Home</a>
+    <a href="../configuracion/estructura.html">Siguiente &rarr;</a>
+  </div>
+</body>
+</html> 
