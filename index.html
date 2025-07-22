@@ -1,29 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog Neovim + NvChad</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Neovim SPA</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <h1>Blog Neovim + NvChad</h1>
-    <p>Guía visual y práctica para principiantes y usuarios avanzados.<br>¡Explora cada sección para aprender y dominar tu editor!</p>
-    <button id="theme-toggle">Alternar Tema</button>
-  </header>
-  <div class="nav">
-    <a href="#" id="nav-prev-top">&larr; Anterior</a>
-    <a class="center" href="index.html" id="nav-home-top">Home</a>
-    <a href="#" id="nav-next-top">Siguiente &rarr;</a>
-  </div>
-  <main id="content-area"></main>
-  <div class="nav">
-    <a href="#" id="nav-prev-bottom">&larr; Anterior</a>
-    <a class="center" href="index.html" id="nav-home-bottom">Home</a>
-    <a href="#" id="nav-next-bottom">Siguiente &rarr;</a>
-  </div>
-  <script src="scripts/script.js"></script>
-  <script src="scripts/router.js"></script>
+    <div class="container">
+        <aside class="sidebar">
+            <nav>
+                <h3>Instalación</h3>
+                <ul>
+                    <li><a href="/instalacion/preparacion">Preparación</a></li>
+                    <li><a href="/instalacion/fuentes">Fuentes</a></li>
+                    <li><a href="/instalacion/neovim_nvchad">Neovim y NvChad</a></li>
+                </ul>
+                <h3>Configuración</h3>
+                <ul>
+                    <li><a href="/configuracion/estructura">Estructura</a></li>
+                    <li><a href="/configuracion/plugins">Plugins</a></li>
+                    <li><a href="/configuracion/mappings">Mappings</a></li>
+                    <li><a href="/configuracion/lsp">LSP</a></li>
+                    <li><a href="/configuracion/snippets">Snippets</a></li>
+                    <li><a href="/configuracion/temas">Temas</a></li>
+                </ul>
+                <h3>Productividad</h3>
+                <ul>
+                    <li><a href="/productividad/atajos">Atajos</a></li>
+                    <li><a href="/productividad/tips">Tips</a></li>
+                    <li><a href="/productividad/debug">Debug</a></li>
+                </ul>
+                <h3>Comunidad</h3>
+                <ul>
+                    <li><a href="/comunidad/recursos">Recursos</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main id="content">
+            <h1>Bienvenido a la Guía Interactiva</h1>
+            <p>Selecciona un tema de la barra lateral para comenzar.</p>
+        </main>
+    </div>
+    <script src="scripts/script.js"></script>
 </body>
 </html> 

@@ -190,6 +190,12 @@ main a:hover {
   font-weight: normal;
 }
 
+.sidebar nav a.active {
+    color: #00aaff;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 @media (max-width: 700px) {
   section {
     padding: 1rem;

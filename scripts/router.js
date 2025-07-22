@@ -55,14 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Manejar todos los clics en los enlaces a través de delegación de eventos en el body
+  // Delegación robusta de eventos para todos los enlaces
   document.body.addEventListener('click', (event) => {
     const link = event.target.closest('a');
-
-    if (link) {
+    if (link && link.href && link.getAttribute('href')) {
       const href = link.getAttribute('href');
-
-      if (href && !href.startsWith('http') && !href.endsWith('README.md') && !href.startsWith('#')) {
+      // Solo interceptar enlaces internos absolutos (empiezan por '/')
+      if (href.startsWith('/') && !href.startsWith('//') && !href.endsWith('README.md')) {
         event.preventDefault();
         loadContent(href);
       }
@@ -82,14 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Función para determinar la página siguiente/anterior y actualizar botones
   function updateNavigationButtons() {
     const currentPath = window.location.pathname;
-    let baseCurrentPath = currentPath.split('/blog/')[1] || '';
+    let baseCurrentPath = currentPath.split('/blog')[1] || '/index.html';
 
-    // Ajustar la ruta si no tiene 'src/' al inicio o es index.html
-    if (baseCurrentPath === 'index.html' || baseCurrentPath === '') {
-      baseCurrentPath = 'src/instalacion/preparacion.html';
-    } else if (!baseCurrentPath.startsWith('src/') && pageOrder.includes('src/' + baseCurrentPath)) {
-      // Si la URL es e.g. /blog/instalacion/preparacion.html (sin src en la URL pero en pageOrder si)
-      baseCurrentPath = 'src/' + baseCurrentPath;
+    if (baseCurrentPath === '/index.html' || baseCurrentPath === '/') {
+      baseCurrentPath = '/src/instalacion/preparacion.html';
+    } else if (!baseCurrentPath.startsWith('/src/') && pageOrder.includes('/src/' + baseCurrentPath.replace(/^\//, ''))) {
+      baseCurrentPath = '/src/' + baseCurrentPath.replace(/^\//, '');
     }
 
     const currentIndex = pageOrder.indexOf(baseCurrentPath);
@@ -101,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navButtons.forEach(buttons => {
       if (buttons.home) {
-        buttons.home.href = 'index.html';
+        buttons.home.href = '/index.html';
       }
 
       if (buttons.prev) {
