@@ -1,210 +1,242 @@
+/* Importa la fuente Inter de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
 
+/* --- Variables CSS para Temas (Claro/Oscuro) --- */
 :root {
-  /* Modo oscuro (valores por defecto) */
-  --bg-color: #181825;
-  --text-color: #e0e0e0;
-  --h1-color: #ecf5eb;
-  --section-bg-color: #02040f;
-  --code-bg-color: #313244;
-  --code-text-color: #f9e2af;
-  --link-color: #89b4fa;
-  --nav-link-color: #f9e2af;
-  --nav-bg-color: #232634;
-  --nav-border-color: #a6e3a1;
-  --nav-hover-bg-color: #313244;
-  --kbd-bg-color: #313244;
-  --kbd-text-color: #f9e2af;
-  --table-border-color: #313244;
-  --table-header-bg-color: #232634;
-  --table-header-text-color: #a6e3a1;
-  --header-border-color: #a6e3a1;
-  --main-h2-color: #f9e2af;
-  --main-h2-border-color: #a6e3a1;
-  --desc-color: #cdd6f4;
+    /* Tema Oscuro (por defecto) */
+    --bg-color: #1a1a2e; /* Fondo principal */
+    --text-color: #e0e0e0; /* Color de texto principal */
+    --sidebar-bg: #16213e; /* Fondo de la barra lateral */
+    --sidebar-text: #e0e0e0;
+    --link-color: #0f3460; /* Color de los enlaces */
+    --link-hover-bg: #0a192f;
+    --link-active-bg: #0a192f;
+    --border-color: #0f3460; /* Color de los bordes */
+    --card-bg: #28284a; /* Fondo de tarjetas/elementos destacados */
+    --heading-color: #e0e0e0; /* Color de los títulos */
+    --button-bg: #e94560; /* Color de fondo de botones */
+    --button-text: #ffffff; /* Color de texto de botones */
+    --scrollbar-thumb: #3f51b5; /* Color del pulgar de la barra de desplazamiento */
+    --scrollbar-track: #16213e; /* Color de la pista de la barra de desplazamiento */
 }
 
-[data-theme="light"] {
-  --bg-color: #f5f5f5;
-  --text-color: #333333;
-  --h1-color: #007bff;
-  --section-bg-color: #ffffff;
-  --code-bg-color: #e9ecef;
-  --code-text-color: #d63384;
-  --link-color: #007bff;
-  --nav-link-color: #007bff;
-  --nav-bg-color: #e9ecef;
-  --nav-border-color: #007bff;
-  --nav-hover-bg-color: #dae0e5;
-  --kbd-bg-color: #e9ecef;
-  --kbd-text-color: #dc3545;
-  --table-border-color: #ced4da;
-  --table-header-bg-color: #e9ecef;
-  --table-header-text-color: #007bff;
-  --header-border-color: #007bff;
-  --main-h2-color: #28a745;
-  --main-h2-border-color: #28a745;
-  --desc-color: #6c757d;
+body[data-theme="light"] {
+    /* Tema Claro */
+    --bg-color: #f0f2f5;
+    --text-color: #333333;
+    --sidebar-bg: #ffffff;
+    --sidebar-text: #333333;
+    --link-color: #3f51b5;
+    --link-hover-bg: #e0e7ff;
+    --link-active-bg: #e0e7ff;
+    --border-color: #cccccc;
+    --card-bg: #ffffff;
+    --heading-color: #222222;
+    --button-bg: #3f51b5;
+    --button-text: #ffffff;
+    --scrollbar-thumb: #9e9e9e;
+    --scrollbar-track: #f0f0f0;
+}
+
+/* --- Resets y Estilos Generales --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background: var(--bg-color);
-  color: var(--text-color);
-  font-family: 'Segoe UI', Arial, sans-serif;
-  margin: 0;
-  min-height: 100vh;
-}
-
-h1 {
-  color: var(--h1-color);
-  text-align: center;
-}
-
-section {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: var(--section-bg-color);
-  border-radius: 1rem;
-}
-
-code,
-pre {
-  background: var(--code-bg-color);
-  color: var(--code-text-color);
-  border-radius: 4px;
-  padding: 2px 6px;
-  font-family: 'Fira Mono', Consolas, monospace;
-}
-
-pre {
-  display: block;
-  padding: 1em;
-  margin: 1em 0;
-  overflow-x: auto;
-}
-
-a {
-  color: var(--link-color);
-}
-
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 1.5em 0 2em 0;
-  gap: 1em;
-}
-
-.nav a {
-  color: var(--nav-link-color);
-  font-size: 1em;
-  font-weight: bold;
-  background: var(--nav-bg-color);
-  border-radius: 0.5em;
-  padding: 0.4em 1em;
-  border: 1px solid var(--nav-border-color);
-  transition: background 0.15s;
-  text-align: center;
-  min-width: 100px;
-}
-
-.nav .center {
-  flex: 1;
-  text-align: center;
-}
-
-.nav a:hover {
-  background: var(--nav-hover-bg-color);
-}
-
-kbd {
-  background: var(--kbd-bg-color);
-  color: var(--kbd-text-color);
-  border-radius: 4px;
-  padding: 2px 6px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1em 0;
-}
-
-th,
-td {
-  border: 1px solid var(--table-border-color);
-  padding: 0.5em;
-  text-align: left;
-}
-
-th {
-  background: var(--table-header-bg-color);
-  color: var(--table-header-text-color);
-}
-
-header {
-  text-align: center;
-  padding: 2rem 0 1rem 0;
-  border-bottom: 2px solid var(--header-border-color);
-}
-
-main {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-main h2 {
-  color: var(--main-h2-color);
-  font-size: 1.3em;
-  margin-top: 2em;
-  margin-bottom: 0.5em;
-  border-left: 4px solid var(--main-h2-border-color);
-  padding-left: 0.5em;
-}
-
-main ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.5em 0;
-}
-
-main li {
-  margin: 0.5em 0 0.5em 0;
-}
-
-main a {
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.08em;
-}
-
-main a:hover {
-  text-decoration: underline;
-}
-
-.desc {
-  color: var(--desc-color);
-  font-size: 0.98em;
-  margin-left: 0.5em;
-  font-weight: normal;
-}
-
-.sidebar nav a.active {
-    color: #00aaff;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-@media (max-width: 700px) {
-  section {
-    padding: 1rem;
-  }
-  .nav {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+    display: flex; /* Para que el contenedor principal ocupe toda la altura */
     flex-direction: column;
-    gap: 0.7em;
-  }
-  main {
-    padding: 0 0.3rem;
-  }
+}
+
+/* Scrollbar personalizado */
+body::-webkit-scrollbar {
+    width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 20px;
+    border: 3px solid var(--scrollbar-track);
+}
+
+/* --- Layout Principal --- */
+.container {
+    display: flex;
+    flex-grow: 1; /* Permite que el contenedor principal ocupe el espacio disponible */
+}
+
+/* --- Sidebar (Barra Lateral) --- */
+.sidebar {
+    width: 250px;
+    background-color: var(--sidebar-bg);
+    padding: 20px;
+    border-right: 1px solid var(--border-color);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Evita que la barra lateral se encoja */
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    overflow-y: auto; /* Para scroll en la sidebar si el contenido es largo */
+}
+
+.sidebar nav h3 {
+    color: var(--heading-color);
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 5px;
+}
+
+.sidebar nav ul li a {
+    display: block;
+    padding: 8px 10px;
+    text-decoration: none;
+    color: var(--link-color);
+    border-radius: 5px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar nav ul li a:hover {
+    background-color: var(--link-hover-bg);
+    color: var(--text-color);
+}
+
+.sidebar nav ul li a.active {
+    background-color: var(--link-active-bg);
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+/* --- Main Content (Contenido Principal) --- */
+main#content {
+    flex-grow: 1; /* El contenido principal ocupa el resto del espacio */
+    padding: 30px;
+    overflow-y: auto; /* Para scroll en el contenido principal */
+}
+
+main#content h1,
+main#content h2,
+main#content h3,
+main#content h4,
+main#content h5,
+main#content h6 {
+    color: var(--heading-color);
+    margin-bottom: 15px;
+    margin-top: 25px;
+    transition: color 0.3s ease;
+}
+
+main#content p {
+    margin-bottom: 10px;
+}
+
+main#content a {
+    color: var(--link-color);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+main#content a:hover {
+    color: var(--text-color);
+}
+
+/* --- Botón de Tema (si lo añades en tu HTML) --- */
+#theme-toggle {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 20px;
+    width: 100%;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#theme-toggle:hover {
+    opacity: 0.9;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .sidebar nav h3 {
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    .sidebar nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .sidebar nav ul li {
+        margin: 5px;
+    }
+
+    main#content {
+        padding: 20px;
+    }
+}
+
+/* Estilos para bloques de código, si los usas en tu contenido HTML */
+pre {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+}
+
+code {
+    font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace; /* Fuentes monoespaciadas */
+    background-color: var(--link-hover-bg);
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 0.9em;
 }

@@ -1,21 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Estructura de configuración NvChad</title>
-  <link rel="stylesheet" href="../../css/style.css">
-</head>
-<body>
-  <div class="nav">
-    <a href="../instalacion/neovim_nvchad.html">&larr; Anterior</a>
-    <a class="center" href="../../index.html">Home</a>
-    <a href="plugins.html">Siguiente &rarr;</a>
-  </div>
-  <h1>Estructura de configuración de NvChad</h1>
-  <section>
-    <h2>Carpetas y archivos principales</h2>
-    <pre>
+<h1>Estructura de configuración de NvChad</h1>
+<section>
+  <h2>Carpetas y archivos principales</h2>
+  <pre>
 ~/.config/nvim/
 ├── init.lua              # Arranque y carga de módulos
 ├── lazy-lock.json        # Estado de plugins y sincronización
@@ -27,48 +13,41 @@
 │   ├── options.lua       # Opciones generales
 │   └── plugins/          # Plugins adicionales y organización
 ├── README.md             # Descripción y ayuda
-</pre>
-    <h2>¿Qué hace cada archivo?</h2>
-    <ul>
-      <li><b>init.lua</b>: Arranca Neovim y carga el resto de la configuración.</li>
-      <li><b>lazy-lock.json</b>: Guarda el estado de los plugins y permite sincronizar instalaciones.</li>
-      <li><b>LICENSE</b>: Licencia de uso y distribución.</li>
-      <li><b>README.md</b>: Información y ayuda sobre tu configuración.</li>
-      <li><b>chadrc.lua</b>: Cambia el tema, la UI, plugins y atajos globales.</li>
-      <li><b>options.lua</b>: Opciones generales de Neovim y autocmds.</li>
-      <li><b>mappings.lua</b>: Define tus atajos de teclado.</li>
-      <li><b>plugins/</b>: Plugins adicionales, puedes organizar por propósito (ej: utils.lua, editor.lua).</li>
-      <li><b>configs/</b>: Configuración avanzada de plugins (LSP, formatters, etc).</li>
-    </ul>
-    <h2>¿Plugins o configs?</h2>
-    <ul>
-      <li><b>plugins/</b>: Añade y organiza plugins por propósito.</li>
-      <li><b>configs/</b>: Configura opciones avanzadas de cada plugin.</li>
-    </ul>
-    <h2>Tips</h2>
-    <ul>
-      <li>No edites los archivos del core de NvChad, solo los de tu carpeta <b>lua/</b>.</li>
-      <li>Haz copias de seguridad de tu configuración.</li>
-      <li>Lee los comentarios en cada archivo, suelen tener ejemplos útiles.</li>
-    </ul>
-    <h2>Mejores prácticas adicionales</h2>
-    <ul>
-      <li><b>No edites el core de NvChad</b>: Personaliza solo en tu carpeta <code>lua/</code> para evitar perder cambios al actualizar.</li>
-      <li><b>Control de versiones</b>: Usa Git para tu configuración, así puedes restaurar y compartir fácilmente.</li>
-      <li><b>Organización modular</b>: Divide tus configuraciones y plugins en archivos separados para facilitar el mantenimiento y la personalización.</li>
-    </ul>
-    <h2>Starter vs TinyVim</h2>
-    <ul>
-      <li><b>starter</b>: Es la plantilla oficial y recomendada para la mayoría de usuarios. Ofrece una base robusta, fácil de personalizar y mantener.</li>
-      <li><b>tinyvim</b>: Es una configuración minimalista, ideal para quienes buscan velocidad, simplicidad y control total sobre cada aspecto.</li>
-      <li>Elige <b>starter</b> si quieres una experiencia lista para usar y <b>tinyvim</b> si prefieres construir tu entorno desde cero.</li>
-      <li>Ambos se encuentran en <code>repos/starter/</code> y <code>repos/tinyvim/</code>. Consulta sus <code>README.md</code> para detalles y ejemplos.</li>
-    </ul>
-  </section>
-  <div class="nav">
-    <a href="../instalacion/neovim_nvchad.html">&larr; Anterior</a>
-    <a class="center" href="../../index.html">Home</a>
-    <a href="plugins.html">Siguiente &rarr;</a>
-  </div>
-</body>
-</html> 
+  </pre>
+  <h2>¿Qué hace cada archivo?</h2>
+  <ul>
+    <li><b>init.lua</b>: Arranca Neovim y carga el resto de la configuración.</li>
+    <li><b>lazy-lock.json</b>: Guarda el estado de los plugins y permite sincronizar instalaciones.</li>
+    <li><b>LICENSE</b>: Licencia de uso y distribución.</li>
+    <li><b>README.md</b>: Información y ayuda sobre tu configuración.</li>
+    <li><b>chadrc.lua</b>: Cambia el tema, la UI, plugins y atajos globales.</li>
+    <li><b>options.lua</b>: Opciones generales de Neovim y autocmds.</li>
+    <li><b>mappings.lua</b>: Define tus atajos de teclado.</li>
+    <li><b>plugins/</b>: Plugins adicionales, puedes organizar por propósito (ej: utils.lua, editor.lua).</li>
+    <li><b>configs/</b>: Configuración avanzada de plugins (LSP, formatters, etc).</li>
+  </ul>
+  <h2>¿Plugins o configs?</h2>
+  <ul>
+    <li><b>plugins/</b>: Añade y organiza plugins por propósito.</li>
+    <li><b>configs/</b>: Configura opciones avanzadas de cada plugin.</li>
+  </ul>
+  <h2>Tips</h2>
+  <ul>
+    <li>No edites los archivos del core de NvChad, solo los de tu carpeta <b>lua/</b>.</li>
+    <li>Haz copias de seguridad de tu configuración.</li>
+    <li>Lee los comentarios en cada archivo, suelen tener ejemplos útiles.</li>
+  </ul>
+  <h2>Mejores prácticas adicionales</h2>
+  <ul>
+    <li><b>No edites el core de NvChad</b>: Personaliza solo en tu carpeta <code>lua/</code> para evitar perder cambios al actualizar.</li>
+    <li><b>Control de versiones</b>: Usa Git para tu configuración, así puedes restaurar y compartir fácilmente.</li>
+    <li><b>Organización modular</b>: Divide tus configuraciones y plugins en archivos separados para facilitar el mantenimiento y la personalización.</li>
+  </ul>
+  <h2>Starter vs TinyVim</h2>
+  <ul>
+    <li><b>starter</b>: Es la plantilla oficial y recomendada para la mayoría de usuarios. Ofrece una base robusta, fácil de personalizar y mantener.</li>
+    <li><b>tinyvim</b>: Es una configuración minimalista, ideal para quienes buscan velocidad, simplicidad y control total sobre cada aspecto.</li>
+    <li>Elige <b>starter</b> si quieres una experiencia lista para usar y <b>tinyvim</b> si prefieres construir tu entorno desde cero.</li>
+    <li>Ambos se encuentran en <code>repos/starter/</code> y <code>repos/tinyvim/</code>. Consulta sus <code>README.md</code> para detalles y ejemplos.</li>
+  </ul>
+</section> 
