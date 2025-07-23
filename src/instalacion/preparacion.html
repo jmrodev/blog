@@ -1,30 +1,30 @@
-<h1>Preparación y requisitos</h1>
-<section>
-  <h2>Requisitos mínimos</h2>
-  <ul>
-    <li><b>Neovim 0.10.0</b> o superior<br><code>nvim --version</code></li>
-    <li><b>Nerd Font</b> (¡No usar la variante Mono!)<br>Ejemplo: <b>JetBrainsMono Nerd Font</b> (no <i>Mono</i>)</li>
-    <li><b>Ripgrep</b> (opcional, recomendado para búsquedas)<br><code>rg --version</code></li>
-    <li><b>GCC y Make</b> (para compilar plugins nativos)<br><code>gcc --version</code> y <code>make --version</code></li>
-  </ul>
-  <h2>¿Cómo verificar los requisitos?</h2>
-  <pre>nvim --version
+  <h1>Preparación y requisitos</h1>
+  <section>
+    <h2>Requisitos mínimos</h2>
+    <ul>
+      <li><b>Neovim 0.10.0</b> o superior<br><code>nvim --version</code></li>
+      <li><b>Nerd Font</b> (¡No usar la variante Mono!)<br>Ejemplo: <b>JetBrainsMono Nerd Font</b> (no <i>Mono</i>)</li>
+      <li><b>Ripgrep</b> (opcional, recomendado para búsquedas)<br><code>rg --version</code></li>
+      <li><b>GCC y Make</b> (para compilar plugins nativos)<br><code>gcc --version</code> y <code>make --version</code></li>
+    </ul>
+    <h2>¿Cómo verificar los requisitos?</h2>
+    <pre>nvim --version
 fc-list | grep Nerd
 rg --version
 gcc --version
 make --version</pre>
-  <h2>¿Cómo instalar los requisitos?</h2>
-  <pre>sudo pacman -S neovim ripgrep gcc make # Manjaro/Arch
+    <h2>¿Cómo instalar los requisitos?</h2>
+    <pre>sudo pacman -S neovim ripgrep gcc make # Manjaro/Arch
 sudo apt install neovim ripgrep gcc make # Debian/Ubuntu</pre>
-  <h2>Backup y limpieza de instalaciones previas</h2>
-  <p>Si ya usaste Neovim antes, haz backup y limpia:</p>
-  <pre>mkdir ~/backup_nvim
+    <h2>Backup y limpieza de instalaciones previas</h2>
+    <p>Si ya usaste Neovim antes, haz backup y limpia:</p>
+    <pre>mkdir ~/backup_nvim
 cp -r ~/.config/nvim ~/.local/share/nvim ~/.cache/nvim ~/backup_nvim
 rm -rf ~/.config/nvim ~/.local/share/nvim ~/.cache/nvim</pre>
-  <h2>Tips</h2>
-  <ul>
-    <li>Siempre haz backup antes de borrar.</li>
-    <li>Reinicia el terminal tras instalar fuentes o paquetes.</li>
-    <li>Consulta la <a href="https://nvchad.com/docs/quickstart/install" target="_blank">guía oficial</a> si tienes dudas.</li>
-  </ul>
-</section> 
+    <h2>Tips</h2>
+    <ul>
+      <li>Siempre haz backup antes de borrar.</li>
+      <li>Reinicia el terminal tras instalar fuentes o paquetes.</li>
+      <li>Consulta la <a href="https://nvchad.com/docs/quickstart/install" target="_blank">guía oficial</a> si tienes dudas.</li>
+    </ul>
+  </section>

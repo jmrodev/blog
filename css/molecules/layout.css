@@ -1,0 +1,49 @@
+
+/* --- Layout Principal --- */
+.container {
+    display: flex;
+    flex-grow: 1; /* Permite que el contenedor principal ocupe el espacio disponible */
+}
+
+header {
+    background: var(--header-bg);
+    padding: var(--header-padding);
+    border-bottom: 1px solid var(--header-border);
+    box-shadow: 0 2px 10px var(--header-shadow);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+    position: sticky;
+    top: 0;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header-content h1 {
+    color: var(--header-title);
+    font-size: var(--header-title-size);
+    font-weight: 700;
+    margin: 0;
+}
+
+.header-content p {
+    color: var(--header-subtitle);
+    font-size: var(--header-subtitle-size);
+    margin: 5px 0 0 0;
+    font-weight: 400;
+}
+
+.header-content img {
+    width: var(--header-logo-size);
+    height: var(--header-logo-size);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--header-border);
+}
+

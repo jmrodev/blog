@@ -1,0 +1,67 @@
+
+/* --- Main Content (Contenido Principal) --- */
+main#content {
+    flex-grow: 1; /* El contenido principal ocupa el resto del espacio */
+    padding: 5rem;
+    overflow-y: auto; /* Para scroll en el contenido principal */
+}
+
+main#content h1,
+main#content h2,
+main#content h3,
+main#content h4,
+main#content h5,
+main#content h6 {
+    color: var(--heading-color);
+    margin-bottom: 3rem;
+    margin-top: 1rem;
+    transition: color 0.3s ease;
+}
+
+h1 {
+    margin-left: 1rem;
+    
+}
+
+h2 {
+    margin-left: 2rem;
+}
+
+h3 {
+    margin-left: 3rem;
+}
+
+p {
+    margin-left: 3rem;
+}
+
+li {
+    margin-left: 5rem;
+}
+
+
+pre {
+    align-items: center;
+    margin-left: 3rem;
+    font-size: 1.1rem;
+    font-weight: 400;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    width: 70%;
+}
+
+
+
+main#content p {
+    margin-bottom: 10px;
+}
+
+main#content a {
+    color: var(--link-color);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+main#content a:hover {
+    color: var(--text-color);
+}
