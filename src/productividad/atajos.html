@@ -1,52 +1,31 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teclas principales y atajos en NvChad</title>
-  <link rel="stylesheet" href="../../css/style.css">
-</head>
-<body>
-  <div class="nav">
-    <a href="../configuracion/snippets.html">&larr; Anterior</a>
-    <a class="center" href="../../index.html">Home</a>
-    <a href="debug.html">Siguiente &rarr;</a>
-  </div>
-  <h1>Teclas principales y atajos en NvChad</h1>
-  <section>
-    <h2>Notación de mappings</h2>
-    <table>
-      <tr><th>Notación</th><th>Significado</th></tr>
-      <tr><td><code>&lt;C-...&gt;</code></td><td>Ctrl</td></tr>
-      <tr><td><code>&lt;A-...&gt;</code></td><td>Alt</td></tr>
-      <tr><td><code>&lt;S-...&gt;</code></td><td>Shift</td></tr>
-      <tr><td><code>&lt;leader&gt;</code></td><td>Barra espaciadora (Space)</td></tr>
-    </table>
-    <h2>Atajos esenciales</h2>
-    <ul>
-      <li><kbd>&lt;leader&gt;th</kbd> — Cambiar tema</li>
-      <li><kbd>&lt;C-n&gt;</kbd> — Abrir NvimTree (explorador de archivos)</li>
-      <li><kbd>&lt;A-i&gt;</kbd> — Terminal flotante</li>
-      <li><kbd>;</kbd> — Entrar al modo comando</li>
-      <li><kbd>jk</kbd> (en inserción) — Salir a modo normal</li>
-      <li><kbd>&lt;C-s&gt;</kbd> — Guardar archivo</li>
-      <li><kbd>ZZ</kbd> — Salir de Neovim</li>
-      <li><kbd>&lt;leader&gt;fm</kbd> — Formatear archivo con conform</li>
-    </ul>
-    <h2>Ejemplo de mapping personalizado</h2>
-    <pre>local map = vim.keymap.set
+<h1>Teclas principales y atajos en NvChad</h1>
+<section>
+  <h2>Notación de mappings</h2>
+  <table>
+    <tr><th>Notación</th><th>Significado</th></tr>
+    <tr><td><code>&lt;C-...&gt;</code></td><td>Ctrl</td></tr>
+    <tr><td><code>&lt;A-...&gt;</code></td><td>Alt</td></tr>
+    <tr><td><code>&lt;S-...&gt;</code></td><td>Shift</td></tr>
+    <tr><td><code>&lt;leader&gt;</code></td><td>Barra espaciadora (Space)</td></tr>
+  </table>
+  <h2>Atajos esenciales</h2>
+  <ul>
+    <li><kbd>&lt;leader&gt;th</kbd> — Cambiar tema</li>
+    <li><kbd>&lt;C-n&gt;</kbd> — Abrir NvimTree (explorador de archivos)</li>
+    <li><kbd>&lt;A-i&gt;</kbd> — Terminal flotante</li>
+    <li><kbd>;</kbd> — Entrar al modo comando</li>
+    <li><kbd>jk</kbd> (en inserción) — Salir a modo normal</li>
+    <li><kbd>&lt;C-s&gt;</kbd> — Guardar archivo</li>
+    <li><kbd>ZZ</kbd> — Salir de Neovim</li>
+    <li><kbd>&lt;leader&gt;fm</kbd> — Formatear archivo con conform</li>
+  </ul>
+  <h2>Ejemplo de mapping personalizado</h2>
+  <pre>local map = vim.keymap.set
 map("n", ";", ":", { desc = "Entrar al modo comando" })</pre>
-    <h2>Tips</h2>
-    <ul>
-      <li>Consulta <code>:NvCheatsheet</code> o <code>:Telescope keymaps</code> para ver todos los atajos.</li>
-      <li>Personaliza tus mappings en <code>mappings.lua</code>.</li>
-      <li>Documenta tus atajos con <code>desc</code> para identificarlos fácilmente.</li>
-    </ul>
-  </section>
-  <div class="nav">
-    <a href="../configuracion/snippets.html">&larr; Anterior</a>
-    <a class="center" href="../../index.html">Home</a>
-    <a href="debug.html">Siguiente &rarr;</a>
-  </div>
-</body>
-</html> 
+  <h2>Tips</h2>
+  <ul>
+    <li>Consulta <code>:NvCheatsheet</code> o <code>:Telescope keymaps</code> para ver todos los atajos.</li>
+    <li>Personaliza tus mappings en <code>mappings.lua</code>.</li>
+    <li>Documenta tus atajos con <code>desc</code> para identificarlos fácilmente.</li>
+  </ul>
+</section> 

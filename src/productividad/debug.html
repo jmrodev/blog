@@ -1,34 +1,20 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Depuración avanzada con nvim-dap y launch.json</title>
-  <link rel="stylesheet" href="../../css/style.css">
-</head>
-<body>
-  <div class="nav">
-    <a href="atajos.html">&larr; Anterior</a>
-    <a class="center" href="../../index.html">Home</a>
-    <a href="tips.html">Siguiente &rarr;</a>
-  </div>
-  <h1>Depuración avanzada con nvim-dap, launch.json y Docker/SSH</h1>
-  <section>
-    <h2>Enlaces rápidos</h2>
-    <ul>
-      <li><a href="atajos.html">← Volver a atajos y productividad</a></li>
-      <li><a href="../index.html">← Volver al índice principal</a></li>
-    </ul>
-    <h2>¿Qué es nvim-dap?</h2>
-    <p>nvim-dap es el sistema de depuración para Neovim, compatible con el Debug Adapter Protocol (DAP), similar a la experiencia de VSCode.</p>
-    <h2>¿Cómo usar launch.json en Neovim?</h2>
-    <ol>
-      <li>Crea un archivo <code>.vscode/launch.json</code> en tu proyecto.</li>
-      <li>Ejecuta en Neovim:<br><code>:lua require('dap.ext.vscode').load_launchjs()</code></li>
-      <li>Opcional: Mapea este comando a una tecla junto a <code>DapContinue</code> para cargar la config antes de depurar.</li>
-    </ol>
-    <h2>Ejemplo de mappings de teclas para depuración</h2>
-    <pre>local dap = require('dap')
+<h1>Depuración avanzada con nvim-dap, launch.json y Docker/SSH</h1>
+<section>
+  <h2>Enlaces rápidos</h2>
+  <ul>
+    <li><a href="atajos.html">← Volver a atajos y productividad</a></li>
+    <li><a href="../index.html">← Volver al índice principal</a></li>
+  </ul>
+  <h2>¿Qué es nvim-dap?</h2>
+  <p>nvim-dap es el sistema de depuración para Neovim, compatible con el Debug Adapter Protocol (DAP), similar a la experiencia de VSCode.</p>
+  <h2>¿Cómo usar launch.json en Neovim?</h2>
+  <ol>
+    <li>Crea un archivo <code>.vscode/launch.json</code> en tu proyecto.</li>
+    <li>Ejecuta en Neovim:<br><code>:lua require('dap.ext.vscode').load_launchjs()</code></li>
+    <li>Opcional: Mapea este comando a una tecla junto a <code>DapContinue</code> para cargar la config antes de depurar.</li>
+  </ol>
+  <h2>Ejemplo de mappings de teclas para depuración</h2>
+  <pre>local dap = require('dap')
 local map = vim.keymap.set
 map('n', '<F5>', dap.continue, { desc = 'Iniciar/Continuar depuración' })
 map('n', '<F10>', dap.step_over, { desc = 'Step Over' })
@@ -42,8 +28,8 @@ map('n', '<Leader>dl', dap.run_last, { desc = 'Ejecutar última sesión' })
 map('n', '<Leader>dv', function() require('dap.ui.variables').hover() end, { desc = 'Ver variable bajo cursor' })
 map('n', '<Leader>dc', ":lua require('dap.ext.vscode').load_launchjs()<CR>", { desc = 'Cargar launch.json' })
 </pre>
-    <h2>Diagrama visual: Flujo de debugging en Neovim</h2>
-    <pre>
+  <h2>Diagrama visual: Flujo de debugging en Neovim</h2>
+  <pre>
 +-------------------+
 | 1. Escribe tu código |
 +-------------------+
@@ -73,8 +59,8 @@ map('n', '<Leader>dc', ":lua require('dap.ext.vscode').load_launchjs()<CR>", { d
 | 6. Analiza variables/logs   |
 +-----------------------------+
     </pre>
-    <h2>Ejemplo de launch.json para Python</h2>
-    <pre>{
+  <h2>Ejemplo de launch.json para Python</h2>
+  <pre>{
   "configurations": [
     {
       "type": "python",
@@ -85,8 +71,8 @@ map('n', '<Leader>dc', ":lua require('dap.ext.vscode').load_launchjs()<CR>", { d
     }
   ]
 }</pre>
-    <h2>Ejemplo para JavaScript (Node.js)</h2>
-    <pre>{
+  <h2>Ejemplo para JavaScript (Node.js)</h2>
+  <pre>{
   "configurations": [
     {
       "type": "node",
@@ -97,8 +83,8 @@ map('n', '<Leader>dc', ":lua require('dap.ext.vscode').load_launchjs()<CR>", { d
     }
   ]
 }</pre>
-    <h2>Ejemplo para Java</h2>
-    <pre>{
+  <h2>Ejemplo para Java</h2>
+  <pre>{
   "configurations": [
     {
       "type": "java",
@@ -109,8 +95,8 @@ map('n', '<Leader>dc', ":lua require('dap.ext.vscode').load_launchjs()<CR>", { d
     }
   ]
 }</pre>
-    <h2>Ejemplo para C++</h2>
-    <pre>{
+  <h2>Ejemplo para C++</h2>
+  <pre>{
   "configurations": [
     {
       "name": "Debug C++",
@@ -129,12 +115,12 @@ map('n', '<Leader>dc', ":lua require('dap.ext.vscode').load_launchjs()<CR>", { d
     }
   ]
 }</pre>
-    <h2>Depuración remota, Docker y Docker Compose</h2>
-    <ul>
-      <li>Para depurar en Docker o por SSH, expón el puerto de debug (ej: 5678 para Python).</li>
-      <li>Usa <b>pathMappings</b> para que los breakpoints funcionen correctamente:</li>
-    </ul>
-    <pre>{
+  <h2>Depuración remota, Docker y Docker Compose</h2>
+  <ul>
+    <li>Para depurar en Docker o por SSH, expón el puerto de debug (ej: 5678 para Python).</li>
+    <li>Usa <b>pathMappings</b> para que los breakpoints funcionen correctamente:</li>
+  </ul>
+  <pre>{
   "type": "python",
   "request": "attach",
   "name": "Attach to remote",
@@ -147,12 +133,12 @@ map('n', '<Leader>dc', ":lua require('dap.ext.vscode').load_launchjs()<CR>", { d
     }
   ]
 }</pre>
-    <h3>Tips para Docker Compose</h3>
-    <ul>
-      <li>Monta el código en la misma ruta en el contenedor y en tu máquina local.</li>
-      <li>Ejemplo de servicio en <code>docker-compose.yml</code>:</li>
-    </ul>
-    <pre>services:
+  <h3>Tips para Docker Compose</h3>
+  <ul>
+    <li>Monta el código en la misma ruta en el contenedor y en tu máquina local.</li>
+    <li>Ejemplo de servicio en <code>docker-compose.yml</code>:</li>
+  </ul>
+  <pre>services:
   app:
     build: .
     volumes:
@@ -161,38 +147,31 @@ map('n', '<Leader>dc', ":lua require('dap.ext.vscode').load_launchjs()<CR>", { d
       - "5678:5678"
     command: ["python", "-m", "debugpy", "--listen", "0.0.0.0:5678", "main.py"]
 </pre>
-    <h3>Tips para SSH</h3>
-    <ul>
-      <li>Usa <code>ssh -L 5678:localhost:5678 usuario@servidor</code> para crear un túnel seguro.</li>
-      <li>Verifica que el pathMapping apunte al path remoto correcto.</li>
-    </ul>
-    <h2>Errores comunes y solución</h2>
-    <ul>
-      <li><b>Breakpoint Unverified:</b> Verifica que los <code>pathMappings</code> sean correctos y que el código remoto coincida con el local.</li>
-      <li>Revisa los logs con <code>:DapShowLog</code> para detalles de errores.</li>
-      <li>Si usas Docker, monta el código en la misma ruta que en local para evitar problemas de paths.</li>
-    </ul>
-    <h2>Tips y buenas prácticas</h2>
-    <ul>
-      <li>Instala <b>nvim-dap</b> y los adaptadores para tu lenguaje (<b>nvim-dap-python</b>, <b>nvim-dap-js</b>, etc).</li>
-      <li>Consulta la documentación de cada adaptador para configuraciones avanzadas.</li>
-      <li>Usa mappings para iniciar, pausar, poner breakpoints y ver variables fácilmente.</li>
-      <li>Siempre carga el <code>launch.json</code> antes de depurar.</li>
-      <li>Para debugging remoto, asegúrate de que el puerto esté abierto y accesible.</li>
-    </ul>
-    <h2>Recursos útiles</h2>
-    <ul>
-      <li><a href="https://github.com/mfussenegger/nvim-dap" target="_blank">nvim-dap (GitHub)</a></li>
-      <li><a href="https://github.com/mfussenegger/nvim-dap-python" target="_blank">nvim-dap-python</a></li>
-      <li><a href="https://github.com/microsoft/vscode-js-debug" target="_blank">vscode-js-debug</a></li>
-      <li><a href="https://github.com/mfussenegger/nvim-jdtls" target="_blank">nvim-jdtls (Java)</a></li>
-      <li><a href="https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation" target="_blank">Wiki: instalación de adaptadores</a></li>
-    </ul>
-  </section>
-  <div class="nav">
-    <a href="atajos.html">&larr; Anterior</a>
-    <a class="center" href="../../index.html">Home</a>
-    <a href="tips.html">Siguiente &rarr;</a>
-  </div>
-</body>
-</html> 
+  <h3>Tips para SSH</h3>
+  <ul>
+    <li>Usa <code>ssh -L 5678:localhost:5678 usuario@servidor</code> para crear un túnel seguro.</li>
+    <li>Verifica que el pathMapping apunte al path remoto correcto.</li>
+  </ul>
+  <h2>Errores comunes y solución</h2>
+  <ul>
+    <li><b>Breakpoint Unverified:</b> Verifica que los <code>pathMappings</code> sean correctos y que el código remoto coincida con el local.</li>
+    <li>Revisa los logs con <code>:DapShowLog</code> para detalles de errores.</li>
+    <li>Si usas Docker, monta el código en la misma ruta que en local para evitar problemas de paths.</li>
+  </ul>
+  <h2>Tips y buenas prácticas</h2>
+  <ul>
+    <li>Instala <b>nvim-dap</b> y los adaptadores para tu lenguaje (<b>nvim-dap-python</b>, <b>nvim-dap-js</b>, etc).</li>
+    <li>Consulta la documentación de cada adaptador para configuraciones avanzadas.</li>
+    <li>Usa mappings para iniciar, pausar, poner breakpoints y ver variables fácilmente.</li>
+    <li>Siempre carga el <code>launch.json</code> antes de depurar.</li>
+    <li>Para debugging remoto, asegúrate de que el puerto esté abierto y accesible.</li>
+  </ul>
+  <h2>Recursos útiles</h2>
+  <ul>
+    <li><a href="https://github.com/mfussenegger/nvim-dap" target="_blank">nvim-dap (GitHub)</a></li>
+    <li><a href="https://github.com/mfussenegger/nvim-dap-python" target="_blank">nvim-dap-python</a></li>
+    <li><a href="https://github.com/microsoft/vscode-js-debug" target="_blank">vscode-js-debug</a></li>
+    <li><a href="https://github.com/mfussenegger/nvim-jdtls" target="_blank">nvim-jdtls (Java)</a></li>
+    <li><a href="https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation" target="_blank">Wiki: instalación de adaptadores</a></li>
+  </ul>
+</section> 

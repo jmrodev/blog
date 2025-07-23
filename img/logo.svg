@@ -1,0 +1,16 @@
+<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo circular blanco -->
+  <circle cx="30" cy="30" r="28" fill="white" stroke="#333333" stroke-width="2"/>
+  
+  <!-- Letra J -->
+  <path d="M15 15 L15 35 Q15 40 20 40 L25 40" stroke="#333333" stroke-width="3" fill="none" stroke-linecap="round"/>
+  
+  <!-- Letra M -->
+  <path d="M30 15 L30 40 M30 15 L35 25 L40 15 M40 15 L40 40" stroke="#333333" stroke-width="3" fill="none" stroke-linecap="round"/>
+  
+  <!-- Letra R -->
+  <path d="M45 15 L45 40 M45 15 L50 15 Q55 15 55 20 Q55 25 50 25 L45 25 L50 40" stroke="#333333" stroke-width="3" fill="none" stroke-linecap="round"/>
+  
+  <!-- Letra O -->
+  <ellipse cx="55" cy="32" rx="3" ry="3" stroke="#333333" stroke-width="2" fill="none"/>
+</svg> 
