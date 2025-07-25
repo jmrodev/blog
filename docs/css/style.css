@@ -108,6 +108,7 @@
   --ml-blockquote: calc(var(--ml-base) + 7 * var(--ml-step));
   --ml-img: calc(var(--ml-base) + 8 * var(--ml-step));
   --ml-hr: calc(var(--ml-base) + 9 * var(--ml-step));
+  --ml-table: calc(var(--ml-base) + 10 * var(--ml-step));
 }
 
 body.dark-mode {
@@ -352,6 +353,10 @@ hr {
   border-top: 1px solid var(--color-border);
   margin: var(--space-hr) 0;
   margin-left: var(--ml-hr);
+}
+
+#content table {
+  margin-left: var(--ml-table);
 }
 
 /* ------------------ Responsive ------------------ */
