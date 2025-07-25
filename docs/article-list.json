@@ -1,5 +1,15 @@
 [
   {
+    "id": "english",
+    "title": "English",
+    "path": "/About me/english.html"
+  },
+  {
+    "id": "spanish",
+    "title": "Sobre mí",
+    "path": "/About me/spanish.html"
+  },
+  {
     "id": "nvim",
     "title": "Neovim: Todo en uno",
     "path": "/articulos/avanzados/nvim.html"
@@ -13,10 +23,5 @@
     "id": "javascript-modern",
     "title": "JavaScript Moderno: ES6+ y más allá",
     "path": "/articulos/basicos/javascript-modern.html"
-  },
-  {
-    "id": "portfolio",
-    "title": "Sobre mí",
-    "path": "/portfolio.html"
   }
 ]
