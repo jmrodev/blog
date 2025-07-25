@@ -1,0 +1,787 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neovim: Todo en uno</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+       
+  <main>
+    <h1>Neovim: Todo en uno</h1>
+    <h1>Neovim: Todo en uno</h1>
+<hr>
+<h1>Preparación y requisitos</h1>
+<h2>Requisitos mínimos para Neovim</h2>
+<p>Para asegurar que tu experiencia con <strong>Neovim</strong> y <strong>NvChad</strong> sea fluida y completa, verifica que cumples con los siguientes requisitos. Estas herramientas son fundamentales para el correcto funcionamiento y la personalización de tu editor.</p>
+<ul>
+<li><strong>Neovim 0.10.0 o superior</strong>: Es el corazón de tu editor.<ul>
+<li>Verifica tu versión: <code>nvim --version</code></li>
+</ul>
+</li>
+<li><strong>Nerd Font</strong>: Indispensable para que Neovim y sus plugins muestren iconos y símbolos especiales correctamente. <strong>¡Asegúrate de no usar la variante &quot;Mono&quot; si hay una opción regular, ya que puede causar problemas de alineación!</strong><ul>
+<li>Recomendado: <strong>JetBrainsMono Nerd Font</strong> (no <em>JetBrainsMonoMono Nerd Font</em>).</li>
+</ul>
+</li>
+<li><strong>Ripgrep</strong> (opcional, pero altamente recomendado): Esta es una herramienta de búsqueda de texto ultrarrápida que mejora significativamente las capacidades de búsqueda dentro de Neovim.<ul>
+<li>Verifica su instalación: <code>rg --version</code></li>
+</ul>
+</li>
+<li><strong>GCC y Make</strong>: Son esenciales si planeas usar plugins de Neovim que requieran compilación (a menudo plugins escritos en C/C++).<ul>
+<li>Verifica su instalación: <code>gcc --version</code> y <code>make --version</code></li>
+</ul>
+</li>
+</ul>
+<h2>¿Cómo verificar los requisitos?</h2>
+<pre><code class="language-bash">nvim --version
+fc-list | grep Nerd
+rg --version
+gcc --version
+make --version
+</code></pre>
+<h2>¿Cómo instalar los requisitos?</h2>
+<pre><code class="language-bash">sudo pacman -S neovim ripgrep gcc make # Manjaro/Arch
+sudo apt install neovim ripgrep gcc make # Debian/Ubuntu
+</code></pre>
+<p>En <strong>Windows</strong>, puedes usar WSL para un entorno Linux completo, o herramientas como Chocolatey/Scoop para instalar <code>ripgrep</code>. Para <strong>macOS</strong>, Homebrew (<code>brew install ripgrep gcc make</code>) es la forma más sencilla.</p>
+<h2>Backup y limpieza de instalaciones previas</h2>
+<p>Si ya usaste Neovim antes, haz un backup y limpia para evitar conflictos:</p>
+<pre><code class="language-bash">mkdir ~/backup_nvim
+cp -r ~/.config/nvim ~/.local/share/nvim ~/.cache/nvim ~/backup_nvim
+rm -rf ~/.config/nvim ~/.local/share/nvim ~/.cache/nvim
+</code></pre>
+<h2>Tips</h2>
+<ul>
+<li>Siempre haz backup antes de borrar.</li>
+<li>Reinicia el terminal tras instalar fuentes o paquetes.</li>
+<li>Consulta la <a href="https://nvchad.com/docs/quickstart/install">guía oficial</a> si tienes dudas.</li>
+</ul>
+<hr>
+<h1>Instalación de Nerd Fonts</h1>
+<h2>¿Por qué usar Nerd Fonts?</h2>
+<p>Las <strong>Nerd Fonts</strong> permiten que Neovim y sus plugins muestren iconos y símbolos correctamente, mejorando la experiencia visual y la funcionalidad de herramientas como exploradores de archivos o árboles de sintaxis.</p>
+<h2>Paso 1: Descargar una Nerd Font</h2>
+<ul>
+<li><strong>Recomendado</strong>: <a href="https://www.nerdfonts.com/font-downloads">JetBrainsMono Nerd Font</a></li>
+<li>Descarga el archivo <code>.zip</code> para tu sistema operativo.</li>
+</ul>
+<h2>Paso 2: Instalar la fuente</h2>
+<h3>Linux</h3>
+<pre><code class="language-bash">sudo apt install unzip
+cd ~/Descargas
+unzip JetBrainsMono.zip -d JetBrainsMono
+mkdir -p ~/.local/share/fonts
+mv ./JetBrainsMono/*.ttf ~/.local/share/fonts
+fc-cache -f -v
+</code></pre>
+<h3>Windows y macOS</h3>
+<ul>
+<li>Extrae el <code>.zip</code> descargado.</li>
+<li>Haz doble clic en los archivos <code>.ttf</code> (o <code>.otf</code> si los hay) y pulsa &quot;Instalar&quot;.</li>
+</ul>
+<h2>Paso 3: Configura la fuente en tu terminal</h2>
+<ul>
+<li>Abre la configuración de tu emulador de terminal.</li>
+<li>Selecciona la fuente <strong>JetBrainsMono Nerd Font</strong> (o la que hayas elegido).</li>
+<li>Guarda y reinicia el terminal.</li>
+</ul>
+<p>Algunos terminales populares con buen soporte para Nerd Fonts incluyen Alacritty, Kitty, WezTerm (Windows/Linux/macOS), iTerm2 (macOS) y Windows Terminal (Windows).</p>
+<h2>¿Problemas?</h2>
+<ul>
+<li>Reinicia el terminal o la sesión completa.</li>
+<li>Verifica que la fuente esté bien escrita y seleccionada en la configuración de tu terminal.</li>
+<li>Consulta la <a href="https://www.nerdfonts.com/font-downloads">web oficial de Nerd Fonts</a> para más ayuda.</li>
+</ul>
+<hr>
+<h1>Instalación de Neovim y NvChad</h1>
+<h2>¿Starter o core?</h2>
+<ul>
+<li><strong>Starter</strong>: Es el repositorio recomendado para la mayoría de los usuarios. Proporciona una base robusta y personalizable para tu configuración.</li>
+<li><strong>NvChad core</strong>: Este repositorio es solo para desarrollo o contribución directa al proyecto NvChad. Para personalizar tu editor, siempre debes usar el &quot;starter&quot;.</li>
+</ul>
+<h2>Instalación rápida</h2>
+<pre><code class="language-bash">git clone [https://github.com/NvChad/starter](https://github.com/NvChad/starter) ~/.config/nvim --depth 1
+nvim
+</code></pre>
+<h2>¿Qué ocurre al iniciar?</h2>
+<p>La primera vez que ejecutas <code>nvim</code> después de la clonación, sucederán algunas cosas:</p>
+<ul>
+<li>Se descargarán e instalarán los plugins y temas básicos de NvChad.</li>
+<li>Verás una ventana de instalación o progreso; puedes cerrarla con &lt;kbd&gt;q&lt;/kbd&gt; cuando el proceso termine.</li>
+<li>La configuración es mínima y está lista para que empieces a personalizarla.</li>
+</ul>
+<p>Si el primer inicio no descarga nada o da errores, asegúrate de tener conexión a internet y verifica los permisos de la carpeta <code>~/.config/nvim</code>.</p>
+<h2>Bootstrap explicado</h2>
+<p>Este es el código principal que inicia NvChad y carga tus plugins. Entenderlo te da una idea de cómo se inicializa tu entorno:</p>
+<pre><code class="language-lua">vim.g.base46_cache = vim.fn.stdpath &quot;data&quot; .. &quot;/nvchad/base46/&quot;
+vim.g.mapleader = &quot; &quot;
+
+-- bootstrap lazy and all plugins
+local lazypath = vim.fn.stdpath &quot;data&quot; .. &quot;/lazy/lazy.nvim&quot;
+if not vim.loop.fs_stat(lazypath) then
+  local repo = &quot;[https://github.com/folke/lazy.nvim.git](https://github.com/folke/lazy.nvim.git)&quot;
+  vim.fn.system { &quot;git&quot;, &quot;clone&quot;, &quot;--filter=blob:none&quot;, repo, &quot;--branch=stable&quot;, lazypath }
+end
+vim.opt.rtp:prepend(lazypath)
+local lazy_config = require &quot;configs.lazy&quot;
+require(&quot;lazy&quot;).setup({
+  { &quot;NvChad/NvChad&quot;, lazy = false, branch = &quot;v2.5&quot;, import = &quot;nvchad.plugins&quot; },
+  { import = &quot;plugins&quot; },
+}, lazy_config)
+</code></pre>
+<h2>Estructura inicial</h2>
+<p>Una vez instalado, tu directorio de configuración de Neovim tendrá esta estructura:</p>
+<pre><code>~/.config/nvim/
+├── init.lua
+├── lazy-lock.json
+├── LICENSE
+├── lua/
+│   ├── chadrc.lua
+│   ├── configs/
+│   ├── mappings.lua
+│   ├── options.lua
+│   └── plugins/
+└── README.md
+</code></pre>
+<h2>Tips</h2>
+<ul>
+<li>Si algo falla, puedes eliminar la carpeta <code>~/.config/nvim</code> y repetir el proceso.</li>
+<li>Consulta la <a href="https://nvchad.com/docs/quickstart/install">guía oficial</a> para más ayuda.</li>
+</ul>
+<hr>
+<h1>Estructura de configuración de NvChad</h1>
+<h2>Carpetas y archivos principales</h2>
+<p>Comprender la estructura de <code>~/.config/nvim/</code> es clave para personalizar NvChad:</p>
+<pre><code>~/.config/nvim/
+├── init.lua              # Arranque principal y carga de módulos
+├── lazy-lock.json        # Estado de plugins y sincronización de Lazy.nvim
+├── LICENSE               # Licencia del proyecto
+├── lua/
+│   ├── chadrc.lua        # Configuración principal: temas, UI, plugins, mappings globales
+│   ├── configs/          # Configuraciones avanzadas de plugins, LSP, formatters
+│   ├── mappings.lua      # Atajos de teclado personalizados
+│   ├── options.lua       # Opciones generales de Neovim
+│   └── plugins/          # Plugins adicionales y organización de tus complementos
+└── README.md             # Descripción y ayuda sobre tu configuración
+</code></pre>
+<h2>¿Qué hace cada archivo?</h2>
+<ul>
+<li><strong>init.lua</strong>: Es el punto de entrada de Neovim. Arranca el editor y se encarga de cargar el resto de la configuración.</li>
+<li><strong>lazy-lock.json</strong>: Mantiene un registro del estado de tus plugins, lo que permite a Lazy.nvim sincronizar y gestionar las instalaciones de forma eficiente.</li>
+<li><strong>LICENSE</strong>: La licencia de uso y distribución de NvChad.</li>
+<li><strong>README.md</strong>: Un archivo de información que puedes personalizar para describir tu propia configuración.</li>
+<li><strong>chadrc.lua</strong>: El <strong>corazón de tu personalización</strong>. Aquí definirás el tema, ajustarás la interfaz de usuario (UI), habilitarás o deshabilitarás plugins predeterminados y configurarás atajos globales.</li>
+<li><strong>options.lua</strong>: Contiene las opciones generales de Neovim (como el número de línea, sangría, etc.) y <code>autocmds</code> (comandos automáticos que se ejecutan bajo ciertas condiciones).</li>
+<li><strong>mappings.lua</strong>: Dedicado a definir tus atajos de teclado personalizados, manteniendo tu configuración organizada.</li>
+<li><strong>plugins/</strong>: Esta carpeta es donde añadirás y organizarás tus plugins adicionales. Puedes dividirlos por propósito (ej: <code>ui.lua</code> para interfaz de usuario, <code>completion.lua</code> para autocompletado, <code>lsp.lua</code> para configuraciones LSP específicas, <code>utils.lua</code> para utilidades varias).</li>
+<li><strong>configs/</strong>: Aquí encontrarás configuraciones más avanzadas para plugins específicos, servidores de lenguaje (LSP), linters y formatters.</li>
+</ul>
+<h2>¿Plugins o configs?</h2>
+<ul>
+<li>La carpeta <strong>plugins/</strong> se usa para <strong>declarar y organizar tus plugins</strong> adicionales.</li>
+<li>La carpeta <strong>configs/</strong> se usa para <strong>configurar opciones avanzadas</strong> de cada plugin o sistema (como el LSP).</li>
+</ul>
+<h2>Tips</h2>
+<ul>
+<li><strong>¡No edites los archivos del core de NvChad!</strong> Realiza todas tus personalizaciones dentro de los archivos de tu carpeta <code>lua/</code> para evitar perder tus cambios al actualizar NvChad.</li>
+<li>Haz copias de seguridad de tu configuración, especialmente antes de realizar grandes cambios.</li>
+<li>Lee los comentarios en cada archivo; suelen contener ejemplos útiles y explicaciones.</li>
+</ul>
+<h2>Mejores prácticas adicionales</h2>
+<ul>
+<li><strong>Control de versiones</strong>: Usa <strong>Git</strong> para gestionar tu configuración (<code>~/.config/nvim</code>). Esto te permite restaurar versiones anteriores, experimentar con confianza y compartir tu configuración fácilmente.</li>
+<li><strong>Organización modular</strong>: Divide tus configuraciones y plugins en archivos separados y bien nombrados dentro de <code>lua/plugins/</code> y <code>lua/configs/</code>. Esto facilita el mantenimiento y la personalización a largo plazo.</li>
+</ul>
+<h2>Starter vs TinyVim</h2>
+<p>NvChad ofrece dos plantillas principales:</p>
+<ul>
+<li><strong>Starter</strong>: Es la plantilla oficial y recomendada para la mayoría de usuarios. Proporciona una base robusta, fácil de personalizar y mantener, ideal para empezar rápidamente.</li>
+<li><strong>TinyVim</strong>: Es una configuración minimalista y muy ligera. Ideal para quienes buscan la máxima velocidad, simplicidad y control total sobre cada aspecto, construyendo su entorno casi desde cero.</li>
+</ul>
+<p>Puedes explorar ambos en los directorios <code>repos/starter/</code> y <code>repos/tinyvim/</code> dentro de la instalación de NvChad. Consulta sus <code>README.md</code> respectivos para detalles y ejemplos.</p>
+<hr>
+<h1>Gestión de plugins (Lazy.nvim)</h1>
+<h2>¿Qué es un plugin?</h2>
+<p>Un <strong>plugin</strong> es una extensión que añade funcionalidades a Neovim, como autocompletado inteligente, exploradores de archivos, temas visuales, y mucho más, expandiendo las capacidades del editor base.</p>
+<h2>¿Qué es Lazy.nvim?</h2>
+<p><strong>Lazy.nvim</strong> es el gestor de plugins moderno que NvChad utiliza por defecto. Permite instalar, actualizar y eliminar plugins de forma eficiente y, a menudo, visual, optimizando el rendimiento de tu editor.</p>
+<h2>Comandos útiles de Lazy.nvim</h2>
+<ul>
+<li><code>:Lazy</code> → Abre la interfaz visual de Lazy.nvim, donde puedes gestionar tus plugins, ver su estado y actualizar.</li>
+<li><code>:Lazy sync</code> → Instala, actualiza o elimina plugins según los cambios en tu configuración. <strong>Ejecuta esto después de modificar tu lista de plugins.</strong></li>
+<li><code>:Lazy update</code> → Actualiza todos tus plugins a sus últimas versiones.</li>
+<li><code>:Lazy clean</code> → Elimina plugins que ya no están referenciados en tu configuración, liberando espacio.</li>
+</ul>
+<h2>¿Cómo agregar un plugin?</h2>
+<ol>
+<li>Edita el archivo <code>nvim/lua/plugins/init.lua</code> (o cualquier otro archivo <code>lua</code> que uses para organizar tus plugins dentro de <code>nvim/lua/plugins/</code>).</li>
+<li>Añade una tabla de Lua con la información del plugin. Por ejemplo:<pre><code class="language-lua">{
+  &quot;ggandor/lightspeed.nvim&quot;,
+  event = &quot;VimEnter&quot;, -- Carga el plugin al iniciar Neovim
+},
+</code></pre>
+</li>
+<li>Guarda el archivo y ejecuta <code>:Lazy sync</code> en Neovim para que se instale el nuevo plugin.</li>
+</ol>
+<h2>¿Cómo eliminar o desactivar un plugin?</h2>
+<ul>
+<li>Para <strong>eliminar</strong> un plugin, simplemente borra la tabla correspondiente en tu archivo de configuración (<code>init.lua</code> o el que uses) y luego ejecuta <code>:Lazy sync</code>.</li>
+<li>Para <strong>desactivar</strong> temporalmente un plugin, puedes añadir <code>enabled = false</code> a su tabla de configuración:<pre><code class="language-lua">{
+  &quot;ggandor/lightspeed.nvim&quot;,
+  enabled = false, -- Desactiva este plugin
+},
+</code></pre>
+Y de nuevo, ejecuta <code>:Lazy sync</code>.</li>
+</ul>
+<h2>Tips</h2>
+<ul>
+<li><strong>Lee la documentación de cada plugin</strong>. Siempre revisa el <code>README.md</code> del repositorio del plugin para conocer sus opciones de configuración avanzadas, dependencias y ejemplos de uso.</li>
+<li><strong>Usa eventos de carga</strong>. Para optimizar el rendimiento de Neovim, carga los plugins solo cuando los necesites utilizando la opción <code>event</code> (ej., <code>event = &#39;VeryLazy&#39;</code> para plugins que no son críticos al inicio, <code>event = &#39;InsertEnter&#39;</code> para plugins de autocompletado, o <code>event = &#39;BufRead&#39;</code> para exploradores de archivos).</li>
+<li>Haz cambios de uno en uno y prueba que todo funcione antes de añadir más plugins o configuraciones complejas.</li>
+</ul>
+<h2>Ejemplo avanzado de plugin</h2>
+<p>Aquí tienes un ejemplo de cómo configurar un plugin que requiere una función <code>config</code> para inicializarse o personalizarse:</p>
+<pre><code class="language-lua">return {
+  {
+    &quot;max397574/better-escape.nvim&quot;,
+    event = &quot;InsertEnter&quot;, -- Carga solo cuando entras en modo inserción
+    config = function()
+      require(&quot;better_escape&quot;).setup() -- Llama a la función de setup del plugin
+    end,
+  },
+  -- ...otros plugins
+}
+</code></pre>
+<h2>Consejos de rendimiento y troubleshooting</h2>
+<ul>
+<li>Si un plugin no funciona como esperas, asegúrate de haber ejecutado <code>:Lazy sync</code> después de tus cambios y revisa que la configuración sea correcta según la documentación del plugin.</li>
+<li>Para ver si un plugin está causando lentitud en el inicio de Neovim, puedes usar <code>:Lazy profile</code> para analizar los tiempos de carga de cada plugin.</li>
+</ul>
+<h2>Plugins de la comunidad (nvcommunity)</h2>
+<p>El repositorio <code>nvcommunity</code> es una valiosa colección de plugins y módulos adicionales desarrollados por la comunidad de NvChad. Estos amplían las capacidades de tu editor con integraciones para autocompletado, LSP, edición, exploradores de archivos y más.</p>
+<ul>
+<li>Puedes explorar los módulos disponibles en <code>repos/nvcommunity/lua/nvcommunity/</code>.</li>
+<li>Para usar un módulo, sigue las instrucciones específicas en su <code>README.md</code> correspondiente y añade la configuración sugerida en tu <code>plugins/init.lua</code> (o en el archivo de plugins que organices).</li>
+<li>Verifica siempre la compatibilidad de cada módulo con tu versión de Neovim y otros plugins antes de integrarlo en tu configuración.</li>
+</ul>
+<hr>
+<h1>LSP y Mason</h1>
+<h2>¿Qué es LSP?</h2>
+<p>El <strong>Language Server Protocol (LSP)</strong> es un estándar abierto que permite a los editores de código (como Neovim) comunicarse con &quot;servidores de lenguaje&quot; externos. Estos servidores proporcionan funciones inteligentes como autocompletado contextual, definiciones de símbolos (salto a definición), referencias, renombrado de variables, diagnósticos de código (errores y advertencias), formateo automático y muchas otras características que transforman tu editor en un IDE completo para cada lenguaje.</p>
+<h2>¿Qué es Mason?</h2>
+<p><strong>Mason</strong> es un gestor de servidores LSP, linters (analizadores de código estático) y formatters (herramientas de formateo de código). Integrado en Neovim, Mason facilita la instalación y actualización de estas herramientas directamente desde el editor, sin necesidad de manejarlas manualmente en el sistema.</p>
+<h2>Instalar un servidor LSP</h2>
+<ol>
+<li>Abre Mason en Neovim ejecutando el comando <code>:Mason</code>.</li>
+<li>Busca el servidor de lenguaje que necesitas (ej: <strong>pyright</strong> para Python, <strong>tsserver</strong> para TypeScript, <strong>rust_analyzer</strong> para Rust).</li>
+<li>Instálalo directamente desde la interfaz de Mason seleccionándolo y presionando &lt;kbd&gt;i&lt;/kbd&gt;.</li>
+<li>Después de instalarlo con Mason, debes indicarle a NvChad qué servidores LSP quieres usar. Edita el archivo <code>nvim/lua/configs/lspconfig.lua</code> y añade el nombre del servidor a la tabla <code>servers</code>:<pre><code class="language-lua">local servers = { &quot;html&quot;, &quot;cssls&quot;, &quot;pyright&quot; } -- Añade &quot;pyright&quot; si lo instalaste
+</code></pre>
+</li>
+<li>Guarda el archivo y reinicia Neovim, o ejecuta <code>:LspRestart</code> para que los cambios tomen efecto.</li>
+</ol>
+<h2>Ejemplo de configuración para varios lenguajes</h2>
+<p>Puedes listar múltiples servidores en tu <code>lspconfig.lua</code> para tener soporte en varios lenguajes:</p>
+<pre><code class="language-lua">local servers = { &quot;html&quot;, &quot;cssls&quot;, &quot;tsserver&quot;, &quot;pyright&quot;, &quot;clangd&quot;, &quot;jsonls&quot; }
+</code></pre>
+<h2>Comandos útiles y troubleshooting</h2>
+<ul>
+<li>Usa <code>:LspInfo</code> para ver el estado de los servidores LSP activos en tu buffer actual. Te mostrará qué servidor está adjunto y cualquier error.</li>
+<li>Si el autocompletado o las características del LSP no funcionan, verifica el nombre exacto del servidor y asegúrate de que esté correctamente instalado a través de <code>:Mason</code> y listado en <code>lspconfig.lua</code>.</li>
+<li>Después de hacer cambios en la configuración del LSP o de instalar un nuevo servidor, siempre reinicia Neovim o ejecuta <code>:LspRestart</code>.</li>
+<li>Si los diagnósticos (errores/advertencias) no aparecen, asegúrate de que el servidor LSP esté corriendo y de que el buffer del archivo sea reconocido por el LSP (puedes verificarlo con <code>:LspInfo</code>). A veces, guardar el archivo activa los diagnósticos.</li>
+</ul>
+<hr>
+<h1>Atajos y mappings</h1>
+<h2>¿Qué es un mapping?</h2>
+<p>Un <strong>mapping</strong> es un atajo de teclado personalizado que ejecuta un comando o acción específica en Neovim, permitiéndote automatizar tareas y mejorar tu eficiencia.</p>
+<h2>¿Cómo crear un mapping?</h2>
+<p>Utilizamos la función <code>vim.keymap.set</code> para crear mappings. Sus argumentos básicos son:</p>
+<ul>
+<li><strong>Modo</strong>: El modo de Neovim en el que el atajo estará activo (ej., <code>&quot;n&quot;</code> para normal, <code>&quot;i&quot;</code> para inserción, <code>{&quot;n&quot;, &quot;i&quot;}</code> para ambos).</li>
+<li><strong>Teclas</strong>: La combinación de teclas que activará el atajo (ej., <code>&quot;;&quot;</code>).</li>
+<li><strong>Acción</strong>: El comando o función de Lua a ejecutar (ej., <code>&quot;:&quot;</code>).</li>
+<li><strong>Opciones</strong> (opcional): Una tabla con opciones adicionales como <code>desc</code> (descripción del atajo, útil para la hoja de trucos).</li>
+</ul>
+<!-- end list -->
+
+<pre><code class="language-lua">local map = vim.keymap.set
+map(&quot;n&quot;, &quot;;&quot;, &quot;:&quot;, { desc = &quot;Entrar al modo comando&quot; })
+</code></pre>
+<h2>Ejemplos útiles</h2>
+<p>Aquí tienes algunos mappings que puedes añadir o modificar en tu <code>nvim/lua/mappings.lua</code>:</p>
+<ul>
+<li><code>map(&quot;i&quot;, &quot;jk&quot;, &quot;&lt;ESC&gt;&quot;)</code> — Salir del modo inserción a modo normal presionando &lt;kbd&gt;j&lt;/kbd&gt; seguido de &lt;kbd&gt;k&lt;/kbd&gt;.</li>
+<li><code>map({&quot;n&quot;,&quot;i&quot;}, &quot;&lt;C-s&gt;&quot;, &quot;:w&lt;CR&gt;&quot;)</code> — Guardar el archivo actual con &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;s&lt;/kbd&gt; (funciona en modo normal e inserción).</li>
+<li><code>map(&quot;n&quot;, &quot;ZZ&quot;, &quot;:qa&lt;CR&gt;&quot;)</code> — Salir de Neovim cerrando todas las ventanas y pestañas con &lt;kbd&gt;ZZ&lt;/kbd&gt;.</li>
+<li><code>map(&quot;n&quot;, &quot;&lt;leader&gt;fm&quot;, &quot;&lt;cmd&gt;lua vim.lsp.buf.format()&lt;CR&gt;&quot;, { desc = &quot;Formatear archivo&quot; })</code> — Formatear el archivo actual usando el LSP con &lt;kbd&gt;Space&lt;/kbd&gt; + &lt;kbd&gt;fm&lt;/kbd&gt;.</li>
+</ul>
+<h2>¿Cómo eliminar un mapping?</h2>
+<p>Para eliminar un atajo preexistente o uno que hayas creado, usa <code>vim.keymap.del</code>:</p>
+<pre><code class="language-lua">vim.keymap.del(&#39;n&#39;, &#39;&lt;leader&gt;th&#39;) -- Elimina el atajo para cambiar tema en modo normal
+</code></pre>
+<h2>Tips</h2>
+<ul>
+<li>Consulta <code>:NvCheatsheet</code> o <code>:Telescope keymaps</code> para ver todos los atajos activos en tu configuración y detectar posibles conflictos.</li>
+<li><strong>Personaliza tus mappings</strong> en <code>nvim/lua/mappings.lua</code> para que se adapten a tu flujo de trabajo.</li>
+<li><strong>Documenta tus atajos</strong> con la opción <code>desc</code> para que sean fáciles de identificar y recordar, especialmente cuando uses la hoja de trucos.</li>
+<li>Haz cambios de uno en uno y prueba que todo funcione correctamente antes de añadir más mappings.</li>
+</ul>
+<hr>
+<h1>Snippets (LuaSnip)</h1>
+<h2>¿Qué es un snippet?</h2>
+<p>Un <strong>snippet</strong> es un fragmento de código reutilizable que puedes insertar rápidamente en tu editor para ahorrar tiempo y evitar errores de escritura repetitiva. Son altamente personalizables y pueden ser dinámicos.</p>
+<h2>¿Cómo usar LuaSnip?</h2>
+<p>NvChad utiliza <strong>LuaSnip</strong> como su motor de snippets. Estos son los atajos básicos para interactuar con ellos:</p>
+<ul>
+<li>Pulsa &lt;kbd&gt;Tab&lt;/kbd&gt; para expandir un snippet (si el cursor está sobre un prefijo de snippet) o para saltar al siguiente campo dentro de un snippet expandido.</li>
+<li>Pulsa &lt;kbd&gt;Shift&lt;/kbd&gt; + &lt;kbd&gt;Tab&lt;/kbd&gt; para volver al campo anterior dentro de un snippet.</li>
+<li>Pulsa &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;l&lt;/kbd&gt; para elegir una opción en un campo de elección (si el snippet ofrece múltiples opciones).</li>
+</ul>
+<h2>¿Cómo crear y cargar snippets?</h2>
+<p>Puedes crear tus propios snippets en archivos <code>.lua</code> dentro de la carpeta <code>nvim/lua/snippets/</code>. NvChad los cargará automáticamente.</p>
+<ol>
+<li>Crea un archivo en <code>nvim/lua/snippets/</code> con el nombre del lenguaje (ej., <code>lua.lua</code> para snippets de Lua, <code>python.lua</code> para Python).</li>
+<li>Dentro de ese archivo, define tus snippets usando la sintaxis de LuaSnip.
+Ejemplo para Lua (<code>nvim/lua/snippets/lua.lua</code>):<pre><code class="language-lua">local ls = require(&quot;luasnip&quot;) -- Importa la librería LuaSnip
+local s = ls.snippet          -- Función para definir un snippet simple
+local t = ls.text_node        -- Para texto estático
+local i = ls.insert_node      -- Para campos de inserción
+local f = ls.function_node    -- Para campos dinámicos (funciones)
+local d = ls.dynamic_node     -- Para campos dinámicos
+local c = ls.choice_node      -- Para campos con opciones
+local rep = require(&quot;luasnip.extras&quot;).rep -- Para repetir el texto de un nodo
+
+return {
+  -- Snippet para una función anónima
+  s(&quot;fn&quot;, {
+    t(&quot;function(&quot;), i(1, &quot;args&quot;), t(&quot;)\n  &quot;), i(0), t(&quot;\nend&quot;)
+  }),
+
+  -- Snippet para un bucle for numérico
+  s(&quot;fori&quot;, {
+    t(&quot;for &quot;), i(1, &quot;i&quot;), t(&quot; = &quot;), i(2, &quot;1&quot;), t(&quot;, &quot;), i(3, &quot;10&quot;), t(&quot; do\n  &quot;), i(0), t(&quot;\nend&quot;)
+  }),
+
+  -- Snippet de print con el contenido del campo 1
+  s(&quot;print&quot;, {
+    t(&quot;print(&quot;), i(1, &quot;variable&quot;), t(&quot;)&quot;)
+  }),
+}
+</code></pre>
+</li>
+<li>Guarda el archivo y recarga la configuración de Neovim (o reinicia el editor) para que los nuevos snippets estén disponibles.</li>
+</ol>
+<h2>Tips</h2>
+<ul>
+<li>Explora <a href="https://github.com/rafamadriz/friendly-snippets">friendly-snippets</a> en GitHub. Es una colección masiva de snippets para cientos de lenguajes que puedes usar como inspiración o integrar en tu propia configuración.</li>
+<li>Puedes crear snippets altamente <strong>dinámicos</strong> usando funciones de Lua dentro de LuaSnip, lo que permite generar código basado en el contexto o en la entrada del usuario.</li>
+<li>Lee la <a href="https://github.com/L3MON4D3/LuaSnip">documentación oficial de LuaSnip</a> para trucos avanzados y todas las posibilidades que ofrece.</li>
+</ul>
+<h2>Ejemplo avanzado de snippet</h2>
+<p>Este snippet de Lua crea un bucle <code>for</code> y permite al usuario definir la variable del bucle, el iterable, y luego posiciona el cursor dentro del cuerpo del bucle:</p>
+<pre><code class="language-lua">local ls = require(&quot;luasnip&quot;)
+local s = ls.snippet
+local t = ls.text_node
+local i = ls.insert_node
+
+return {
+  s(&quot;for&quot;, {
+    t(&quot;for &quot;), i(1, &quot;var&quot;), t(&quot; in &quot;), i(2, &quot;iterable&quot;), t({&quot; do&quot;, &quot;  &quot;, &quot;  &quot;}), i(0), t({&quot;&quot;, &quot;end&quot;})
+  })
+}
+</code></pre>
+<h2>Consejos de organización y productividad</h2>
+<ul>
+<li><strong>Organiza tus snippets por lenguaje</strong> en subcarpetas dentro de <code>nvim/lua/snippets/</code> (ej., <code>nvim/lua/snippets/python/</code>, <code>nvim/lua/snippets/javascript/</code>).</li>
+<li>Adapta y reutiliza snippets existentes de colecciones como <code>friendly-snippets</code> para acelerar tu flujo de trabajo. No necesitas reinventar la rueda.</li>
+</ul>
+<hr>
+<h1>Temas y personalización visual</h1>
+<h2>¿Cómo cambiar de tema?</h2>
+<p>NvChad facilita el cambio de temas para personalizar el aspecto de tu editor:</p>
+<ul>
+<li>Pulsa &lt;kbd&gt;Space&lt;/kbd&gt; + &lt;kbd&gt;th&lt;/kbd&gt; para abrir el selector de temas integrado.</li>
+<li>Usa las flechas para navegar por la lista de temas disponibles y pulsa &lt;kbd&gt;Enter&lt;/kbd&gt; para aplicar el que te guste.</li>
+</ul>
+<h2>Personalizar la UI</h2>
+<p>Puedes establecer tu tema preferido de forma permanente editando el archivo <code>nvim/lua/chadrc.lua</code>:</p>
+<ul>
+<li>Edita la línea <code>theme = &quot;nombre_del_tema&quot;</code> dentro de la tabla <code>M.ui</code>.</li>
+<li>También puedes definir una lista de temas para alternar rápidamente con &lt;kbd&gt;Space&lt;/kbd&gt; + &lt;kbd&gt;th&lt;/kbd&gt;.</li>
+</ul>
+<!-- end list -->
+
+<pre><code class="language-lua">M.ui = {
+  theme = &quot;onedark&quot;, -- Tu tema principal
+  theme_toggle = { &quot;onedark&quot;, &quot;one_light&quot;, &quot;catppuccin&quot; }, -- Temas para alternar
+}
+</code></pre>
+<ul>
+<li>Guarda el archivo y reinicia Neovim para aplicar los cambios del tema principal.</li>
+</ul>
+<h2>Tips</h2>
+<ul>
+<li>Explora la <a href="https://www.google.com/search?q=https://nvchad.com/docs/themes/list">lista de temas disponibles</a> en la documentación oficial de NvChad.</li>
+<li>Puedes crear tus propios temas o modificar los existentes si tienes conocimientos de Lua y del sistema de colores de Neovim.</li>
+<li>Usa <code>:NvCheatsheet</code> para ver atajos relacionados con la personalización visual y otros comandos útiles.</li>
+</ul>
+<h2>Personalización avanzada con base46</h2>
+<p>Los temas en NvChad se gestionan a través del repositorio <strong>base46</strong>. Esto te permite un control granular sobre los colores de tu editor:</p>
+<ul>
+<li>Puedes crear o modificar temas editando los archivos en <code>repos/base46/lua/base46/themes/</code>.</li>
+<li>Para crear un tema propio, copia un archivo de tema existente (ej., <code>onedark.lua</code>), renómbralo y ajusta los valores de color a tu gusto.</li>
+<li>Una vez creado, tu nuevo tema estará disponible en el selector (&lt;kbd&gt;Space&lt;/kbd&gt; + &lt;kbd&gt;th&lt;/kbd&gt;) o podrás configurarlo directamente en <code>chadrc.lua</code>.</li>
+<li>Consulta la documentación en <code>repos/base46/README.md</code> para detalles y ejemplos avanzados sobre cómo definir paletas de colores y estilos.</li>
+</ul>
+<hr>
+<h1>Teclas principales y atajos en NvChad</h1>
+<p>Dominar los atajos de teclado es fundamental para ser productivo en Neovim. NvChad viene con un conjunto de atajos predefinidos que puedes personalizar.</p>
+<h2>Notación de mappings</h2>
+<p>Para entender los atajos, usa la siguiente notación:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Notación</th>
+<th align="left">Significado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>&lt;C-...&gt;</code></td>
+<td align="left">Combinación con la tecla <strong>Ctrl</strong></td>
+</tr>
+<tr>
+<td align="left"><code>&lt;A-...&gt;</code></td>
+<td align="left">Combinación con la tecla <strong>Alt</strong></td>
+</tr>
+<tr>
+<td align="left"><code>&lt;S-...&gt;</code></td>
+<td align="left">Combinación con la tecla <strong>Shift</strong></td>
+</tr>
+<tr>
+<td align="left"><code>&lt;leader&gt;</code></td>
+<td align="left">La tecla <strong>Barra espaciadora (Space)</strong></td>
+</tr>
+</tbody></table>
+<h2>Atajos esenciales de NvChad</h2>
+<p>Aquí tienes algunos de los atajos más importantes para empezar:</p>
+<ul>
+<li>&lt;kbd&gt;&lt;leader&gt;th&lt;/kbd&gt; — Cambiar tema. Abre el selector de temas.</li>
+<li>&lt;kbd&gt;&lt;C-n&gt;&lt;/kbd&gt; — Abrir NvimTree (el explorador de archivos).</li>
+<li>&lt;kbd&gt;&lt;A-i&gt;&lt;/kbd&gt; — Abrir/cerrar el terminal flotante.</li>
+<li>&lt;kbd&gt;;&lt;/kbd&gt; — Entrar al modo comando (<code>:</code>). Este es un atajo muy útil para escribir comandos rápidamente.</li>
+<li>&lt;kbd&gt;jk&lt;/kbd&gt; (en modo inserción) — Salir del modo inserción y volver al modo normal. Una alternativa rápida a &lt;kbd&gt;Esc&lt;/kbd&gt;.</li>
+<li>&lt;kbd&gt;&lt;C-s&gt;&lt;/kbd&gt; — Guardar el archivo actual.</li>
+<li>&lt;kbd&gt;ZZ&lt;/kbd&gt; — Salir de Neovim, cerrando todas las ventanas y pestañas.</li>
+<li>&lt;kbd&gt;&lt;leader&gt;fm&lt;/kbd&gt; — Formatear el archivo con <code>conform.nvim</code> (si está configurado con tu LSP).</li>
+</ul>
+<h2>Ejemplo de mapping personalizado</h2>
+<p>Puedes definir tus propios atajos en <code>nvim/lua/mappings.lua</code>. Aquí un ejemplo que ya se vio antes:</p>
+<pre><code class="language-lua">local map = vim.keymap.set
+map(&quot;n&quot;, &quot;;&quot;, &quot;:&quot;, { desc = &quot;Entrar al modo comando&quot; })
+</code></pre>
+<h2>Tips</h2>
+<ul>
+<li>Consulta <code>:NvCheatsheet</code> o <code>:Telescope keymaps</code> para ver una lista completa de todos los atajos activos en tu configuración. ¡Es tu mejor amigo para aprender!</li>
+<li><strong>Personaliza tus mappings</strong> en <code>nvim/lua/mappings.lua</code> para que se adapten perfectamente a tu flujo de trabajo.</li>
+<li><strong>Documenta tus atajos</strong> con la opción <code>desc</code> al crearlos. Esto los hará aparecer en <code>NvCheatsheet</code> y te ayudará a recordarlos fácilmente.</li>
+</ul>
+<hr>
+<h1>Depuración avanzada con nvim-dap, launch.json y Docker/SSH</h1>
+<p>La depuración es una parte crucial del desarrollo de software. <strong>nvim-dap</strong> transforma Neovim en un potente entorno de depuración, similar a la experiencia de un IDE tradicional como VSCode.</p>
+<h2>Enlaces rápidos</h2>
+<ul>
+<li><a href="https://www.google.com/search?q=atajos.html">← Volver a atajos y productividad</a></li>
+<li><a href="https://www.google.com/search?q=../index.html">← Volver al índice principal</a></li>
+</ul>
+<h2>¿Qué es nvim-dap?</h2>
+<p><strong>nvim-dap</strong> es el sistema de depuración para Neovim. Implementa el <strong>Debug Adapter Protocol (DAP)</strong>, un protocolo estándar que permite a Neovim comunicarse con &quot;adaptadores de depuración&quot; específicos para cada lenguaje (ej., <code>debugpy</code> para Python, <code>vscode-js-debug</code> para JavaScript).</p>
+<h2>¿Cómo usar launch.json en Neovim?</h2>
+<p><code>nvim-dap</code> puede cargar configuraciones de depuración desde un archivo <code>.vscode/launch.json</code>, el mismo formato que usa VSCode. Esto facilita la migración y el uso de configuraciones existentes.</p>
+<ol>
+<li>Crea un archivo <code>.vscode/launch.json</code> en la raíz de tu proyecto.</li>
+<li>Define tus configuraciones de depuración dentro de este archivo.</li>
+<li>En Neovim, ejecuta el comando para cargar las configuraciones:<pre><code class="language-lua">:lua require(&#39;dap.ext.vscode&#39;).load_launchjs()
+</code></pre>
+</li>
+<li><strong>Opcional</strong>: Puedes mapear este comando a una tecla para mayor comodidad, ejecutándolo antes de iniciar la depuración.</li>
+</ol>
+<h2>Ejemplo de mappings de teclas para depuración</h2>
+<p>Definir atajos para las acciones de depuración agiliza mucho el proceso. Puedes añadir estos mappings a tu <code>nvim/lua/mappings.lua</code>:</p>
+<pre><code class="language-lua">local dap = require(&#39;dap&#39;)
+local map = vim.keymap.set
+
+-- Iniciar/Continuar depuración
+map(&#39;n&#39;, &#39;&lt;F5&gt;&#39;, dap.continue, { desc = &#39;Iniciar/Continuar depuración&#39; })
+-- Pasar por encima (next line)
+map(&#39;n&#39;, &#39;&lt;F10&gt;&#39;, dap.step_over, { desc = &#39;Step Over&#39; })
+-- Entrar a función
+map(&#39;n&#39;, &#39;&lt;F11&gt;&#39;, dap.step_into, { desc = &#39;Step Into&#39; })
+-- Salir de función
+map(&#39;n&#39;, &#39;&lt;F12&gt;&#39;, dap.step_out, { desc = &#39;Step Out&#39; })
+-- Poner/Quitar breakpoint
+map(&#39;n&#39;, &#39;&lt;Leader&gt;b&#39;, dap.toggle_breakpoint, { desc = &#39;Toggle Breakpoint&#39; })
+-- Breakpoint condicional
+map(&#39;n&#39;, &#39;&lt;Leader&gt;B&#39;, function() dap.set_breakpoint(vim.fn.input(&#39;Condición: &#39;)) end, { desc = &#39;Breakpoint condicional&#39; })
+-- Breakpoint de log (logpoint)
+map(&#39;n&#39;, &#39;&lt;Leader&gt;lp&#39;, function() dap.set_breakpoint(nil, nil, vim.fn.input(&#39;Log: &#39;)) end, { desc = &#39;Breakpoint de log&#39; })
+-- Abrir REPL (Read-Eval-Print Loop) de depuración
+map(&#39;n&#39;, &#39;&lt;Leader&gt;dr&#39;, dap.repl.open, { desc = &#39;Abrir REPL&#39; })
+-- Ejecutar la última sesión de depuración
+map(&#39;n&#39;, &#39;&lt;Leader&gt;dl&#39;, dap.run_last, { desc = &#39;Ejecutar última sesión&#39; })
+-- Ver variable bajo el cursor
+map(&#39;n&#39;, &#39;&lt;Leader&gt;dv&#39;, function() require(&#39;dap.ui.variables&#39;).hover() end, { desc = &#39;Ver variable bajo cursor&#39; })
+-- Cargar configuraciones de launch.json
+map(&#39;n&#39;, &#39;&lt;Leader&gt;dc&#39;, &quot;:lua require(&#39;dap.ext.vscode&#39;).load_launchjs()&lt;CR&gt;&quot;, { desc = &#39;Cargar launch.json&#39; })
+</code></pre>
+<h2>Diagrama visual: Flujo de debugging en Neovim</h2>
+<pre><code>+-------------------+
+| 1. Escribe tu código |
++-------------------+
+          |
+          v
++-----------------------------+
+| 2. Crea/edita .vscode/launch.json |
++-----------------------------+
+          |
+          v
++-----------------------------+
+| 3. Ejecuta :lua require(&#39;dap.ext.vscode&#39;).load_launchjs() |
++-----------------------------+
+          |
+          v
++-----------------------------+
+| 4. Inicia depuración (&lt;F5&gt;) |
++-----------------------------+
+          |
+          v
++-----------------------------+
+| 5. Usa breakpoints, step, etc. |
++-----------------------------+
+          |
+          v
++-----------------------------+
+| 6. Analiza variables/logs   |
++-----------------------------+
+</code></pre>
+<h2>Ejemplos de launch.json por lenguaje</h2>
+<h3>Para Python (usando debugpy)</h3>
+<pre><code class="language-json">{
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;type&quot;: &quot;python&quot;,
+      &quot;request&quot;: &quot;launch&quot;,
+      &quot;name&quot;: &quot;Debug archivo actual&quot;,
+      &quot;program&quot;: &quot;${file}&quot;,
+      &quot;console&quot;: &quot;integratedTerminal&quot;,
+      &quot;justMyCode&quot;: true
+    }
+  ]
+}
+</code></pre>
+<h3>Para JavaScript (Node.js, usando vscode-js-debug)</h3>
+<pre><code class="language-json">{
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;type&quot;: &quot;node&quot;,
+      &quot;request&quot;: &quot;launch&quot;,
+      &quot;name&quot;: &quot;Debug JS (Node.js)&quot;,
+      &quot;program&quot;: &quot;${file}&quot;,
+      &quot;cwd&quot;: &quot;${workspaceFolder}&quot;
+    }
+  ]
+}
+</code></pre>
+<h3>Para Java (usando jdtls)</h3>
+<pre><code class="language-json">{
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;type&quot;: &quot;java&quot;,
+      &quot;request&quot;: &quot;launch&quot;,
+      &quot;name&quot;: &quot;Debug Java&quot;,
+      &quot;mainClass&quot;: &quot;com.ejemplo.Main&quot;, // Reemplaza con tu clase principal
+      &quot;projectName&quot;: &quot;MiProyecto&quot;      // Reemplaza con el nombre de tu proyecto
+    }
+  ]
+}
+</code></pre>
+<h3>Para C++ (usando cppdbg/GDB)</h3>
+<pre><code class="language-json">{
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;name&quot;: &quot;Debug C++ (GDB)&quot;,
+      &quot;type&quot;: &quot;cppdbg&quot;,
+      &quot;request&quot;: &quot;launch&quot;,
+      &quot;program&quot;: &quot;${workspaceFolder}/a.out&quot;, // Ruta a tu ejecutable compilado
+      &quot;args&quot;: [],
+      &quot;stopAtEntry&quot;: false,
+      &quot;cwd&quot;: &quot;${workspaceFolder}&quot;,
+      &quot;environment&quot;: [],
+      &quot;externalConsole&quot;: false,
+      &quot;MIMode&quot;: &quot;gdb&quot;,
+      &quot;setupCommands&quot;: [
+        { &quot;description&quot;: &quot;Enable pretty-printing&quot;, &quot;text&quot;: &quot;-enable-pretty-printing&quot;, &quot;ignoreFailures&quot;: true }
+      ]
+    }
+  ]
+}
+</code></pre>
+<h2>Depuración remota, Docker y Docker Compose</h2>
+<p>Depurar aplicaciones que se ejecutan en contenedores Docker o en servidores remotos vía SSH es una capacidad poderosa de <code>nvim-dap</code>. El concepto clave es el <strong>mapeo de rutas (<code>pathMappings</code>)</strong> y la <strong>exposición de puertos</strong>.</p>
+<ul>
+<li>Para depurar en <strong>Docker</strong> o por <strong>SSH</strong>, asegúrate de que el puerto de depuración (ej: <code>5678</code> para Python con <code>debugpy</code>) esté expuesto y sea accesible desde tu máquina local.</li>
+<li>Usa <code>pathMappings</code> en tu <code>launch.json</code> para que los breakpoints funcionen correctamente. Esto le dice a <code>nvim-dap</code> cómo correlacionar las rutas de archivo locales con las rutas dentro del entorno remoto o del contenedor.</li>
+</ul>
+<!-- end list -->
+
+<pre><code class="language-json">{
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;type&quot;: &quot;python&quot;,
+      &quot;request&quot;: &quot;attach&quot;, // Usar &quot;attach&quot; para depuración remota
+      &quot;name&quot;: &quot;Adjuntar a remoto (Python)&quot;,
+      &quot;port&quot;: 5678,
+      &quot;host&quot;: &quot;localhost&quot;, // Si estás usando un túnel SSH o Docker Desktop
+      &quot;pathMappings&quot;: [
+        {
+          &quot;localRoot&quot;: &quot;${workspaceFolder}&quot;, // Ruta de tu proyecto en la máquina local
+          &quot;remoteRoot&quot;: &quot;/app&quot;               // Ruta del proyecto dentro del contenedor/servidor remoto
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+<h3>Tips para Docker Compose</h3>
+<ul>
+<li><strong>Monta el código en la misma ruta</strong>: Para simplificar los <code>pathMappings</code>, es una buena práctica montar tu código fuente en la misma ruta dentro del contenedor que en tu máquina local.</li>
+<li><strong>Exponer el puerto de depuración</strong>: Asegúrate de que el servicio de Docker Compose exponga el puerto necesario.</li>
+<li><strong>Comando de inicio con depurador</strong>: Modifica el <code>command</code> del servicio para que inicie tu aplicación con el depurador escuchando en el puerto expuesto.</li>
+</ul>
+<p>Ejemplo de servicio en <code>docker-compose.yml</code> para Python:</p>
+<pre><code class="language-yaml">services:
+  app:
+    build: .
+    volumes:
+      - ./:/app # Monta el directorio actual al /app dentro del contenedor
+    ports:
+      - &quot;5678:5678&quot; # Expone el puerto 5678 del contenedor al 5678 de tu máquina local
+    command: [&quot;python&quot;, &quot;-m&quot;, &quot;debugpy&quot;, &quot;--listen&quot;, &quot;0.0.0.0:5678&quot;, &quot;main.py&quot;] # Inicia la app con debugpy
+</code></pre>
+<h3>Tips para SSH</h3>
+<ul>
+<li><strong>Túnel SSH</strong>: Para depurar en un servidor remoto, crea un túnel SSH seguro que reenvíe el puerto de depuración del servidor a tu máquina local:
+<pre><code>ssh -L 5678:localhost:5678 usuario@servidor</code></pre></li>
+<li><strong>Verifica el pathMapping</strong>: Asegúrate de que <pre><code>remoteRoot</code></pre> en tu <pre><code>launch.json</code></pre> apunte al path absoluto correcto de tu código en el servidor remoto.</li>
+</ul>
+<h2>Errores comunes y solución</h2>
+<ul>
+<li><strong>&quot;Breakpoint Unverified&quot;</strong>: Este es el error más común en depuración remota. Generalmente indica que <pre><code>nvim-dap</code></pre> no puede correlacionar la línea de código local con la línea correspondiente en el entorno remoto.<ul>
+<li><strong>Solución</strong>: Verifica que tus <pre><code>pathMappings</code></pre> sean <strong>exactamente correctos</strong> y que el código remoto coincida con el local. Pequeñas diferencias en mayúsculas/minúsculas o rutas relativas pueden causar esto.</li>
+</ul>
+</li>
+<li><strong>No se conecta al depurador</strong>:<ul>
+<li><strong>Solución</strong>: Revisa los logs de <pre><code>nvim-dap</code></pre> con <pre><code>:DapShowLog</code></pre> para ver mensajes de error detallados. Asegúrate de que el puerto esté abierto y que no haya firewalls bloqueando la conexión.</li>
+</ul>
+</li>
+</ul>
+<h2>Tips y buenas prácticas</h2>
+<ul>
+<li><strong>Instala los adaptadores DAP</strong>: Además de <pre><code>nvim-dap</code></pre>, necesitas instalar el adaptador específico para tu lenguaje (ej., <pre><code>nvim-dap-python</code></pre> para Python, <pre><code>nvim-dap-js</code></pre> para JavaScript). Mason te ayudará con esto.</li>
+<li><strong>Consulta la documentación de cada adaptador</strong>: Los adaptadores pueden tener configuraciones específicas o requisitos de instalación adicionales.</li>
+<li><strong>Usa mappings</strong>: Define tus atajos para iniciar, pausar, poner breakpoints y ver variables fácilmente. Esto acelera drásticamente tu flujo de trabajo de depuración.</li>
+<li><strong>Siempre carga el <pre><code>launch.json</code></pre></strong>: Acostúmbrate a ejecutar <pre><code>:lua require(&#39;dap.ext.vscode&#39;).load_launchjs()</code></pre> antes de iniciar una sesión de depuración que dependa de este archivo.</li>
+<li><strong>Depuración remota</strong>: Asegúrate de que el puerto de depuración esté abierto y accesible desde donde ejecutas Neovim.</li>
+</ul>
+<h2>Recursos útiles</h2>
+<ul>
+<li><a href="https://github.com/mfussenegger/nvim-dap">nvim-dap (GitHub)</a></li>
+<li><a href="https://github.com/mfussenegger/nvim-dap-python">nvim-dap-python</a></li>
+<li><a href="https://github.com/microsoft/vscode-js-debug">vscode-js-debug (adaptador JS/Node)</a></li>
+<li><a href="https://github.com/mfussenegger/nvim-jdtls">nvim-jdtls (Java)</a></li>
+<li><a href="https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation">Wiki de nvim-dap: instalación de adaptadores</a></li>
+</ul>
+<hr>
+<h1>Consejos y solución de problemas</h1>
+<p>¡Felicidades por llegar hasta aquí! Aquí tienes algunos consejos finales y soluciones a problemas comunes para que tu experiencia con Neovim y NvChad sea lo más fluida posible.</p>
+<h2>Consejos generales</h2>
+<ul>
+<li><strong>Lee la documentación oficial</strong>: La documentación de <a href="https://www.google.com/search?q=https://nvchad.com/docs/config">NvChad</a> y <a href="https://neovim.io/doc/user/index.html">Neovim</a> es tu mejor recurso. Contiene información detallada y ejemplos.</li>
+<li><strong>Haz cambios de uno en uno</strong>: Si estás personalizando tu configuración, añade o modifica un elemento a la vez y prueba que funciona. Esto facilita la identificación de la causa si algo falla.</li>
+<li><strong>Haz copias de seguridad regularmente</strong>: Antes de realizar grandes cambios o actualizaciones, haz una copia de seguridad de tu directorio <pre><code>~/.config/nvim</code></pre>.</li>
+<li><strong>Usa <pre><code>:checkhealth</code></pre></strong>: Este comando integrado en Neovim te ayuda a diagnosticar problemas comunes relacionados con dependencias, LSP, y más.</li>
+<li><strong>Consulta foros y comunidades</strong>: Si te atascas, la comunidad de Neovim y NvChad es muy activa. No dudes en buscar ayuda.</li>
+</ul>
+<h2>Solución de problemas comunes</h2>
+<ul>
+<li><strong>El tema no cambia</strong>:<ul>
+<li><strong>Solución</strong>: Revisa que el nombre del tema esté bien escrito en <pre><code>chadrc.lua</code></pre> (sensible a mayúsculas/minúsculas). Luego, guarda el archivo y reinicia Neovim.</li>
+</ul>
+</li>
+<li><strong>Un plugin no funciona o no carga</strong>:<ul>
+<li><strong>Solución</strong>: Ejecuta <pre><code>:Lazy sync</code></pre> para asegurarte de que el plugin esté instalado y actualizado. Verifica su configuración en <pre><code>nvim/lua/plugins/</code></pre> y consulta la documentación específica del plugin para posibles dependencias o requisitos.</li>
+</ul>
+</li>
+<li><strong>Errores de LSP (autocompletado, diagnósticos)</strong>:<ul>
+<li><strong>Solución</strong>: Primero, verifica que el servidor LSP esté correctamente instalado a través de <pre><code>:Mason</code></pre> y que su nombre exacto esté listado en <pre><code>nvim/lua/configs/lspconfig.lua</code></pre>. Luego, ejecuta <pre><code>:LspRestart</code></pre> o reinicia Neovim. Usa <pre><code>:LspInfo</code></pre> para depurar el estado del servidor en el buffer actual.</li>
+</ul>
+</li>
+<li><strong>Problemas con atajos de teclado (mappings)</strong>:<ul>
+<li><strong>Solución</strong>: Si un atajo no funciona o hace algo inesperado, usa <pre><code>:NvCheatsheet</code></pre> o <pre><code>:Telescope keymaps</code></pre> para ver si hay conflictos o si se ha sobrescrito un atajo. Revisa la sintaxis en <pre><code>nvim/lua/mappings.lua</code></pre>.</li>
+</ul>
+</li>
+<li><strong>Depuración no funciona (nvim-dap)</strong>:<ul>
+<li><strong>Solución</strong>: Revisa los logs de depuración con <pre><code>:DapShowLog</code></pre>. Asegúrate de que el adaptador DAP para tu lenguaje esté instalado via Mason. Si es depuración remota, verifica los <pre><code>pathMappings</code></pre> en tu <pre><code>launch.json</code></pre> y que los puertos estén correctamente expuestos y accesibles.</li>
+</ul>
+</li>
+</ul>
+<h2>Tips de productividad</h2>
+<ul>
+<li><strong>Aprende los atajos básicos y personalízalos</strong>: Los atajos son la clave de la velocidad en Neovim. Dedica tiempo a aprender los más comunes y personaliza aquellos que usas frecuentemente.</li>
+<li><strong>Explora nuevos plugins</strong>: La comunidad de Neovim es muy innovadora. Mantente al tanto de nuevos plugins que puedan mejorar tu flujo de trabajo.</li>
+<li><strong>Participa en la comunidad</strong>: Contribuye con tus dudas, soluciones o incluso compartiendo tu configuración. Aprender de otros es invaluable.</li>
+</ul>
+<hr>
+<h1>Recursos y comunidad</h1>
+<p>Aquí tienes una lista de recursos y comunidades donde puedes encontrar más información, pedir ayuda y conectar con otros usuarios de Neovim y NvChad.</p>
+<h2>Enlaces útiles</h2>
+<ul>
+<li><a href="https://www.google.com/search?q=https://nvchad.com/docs/config">Documentación oficial de NvChad</a></li>
+<li><a href="https://github.com/NvChad/NvChad">NvChad en GitHub</a></li>
+<li><a href="https://www.google.com/search?q=https://discord.gg/9f8vK9dfWq">NvChad Discord</a>: Excelente lugar para preguntas rápidas y ayuda de la comunidad.</li>
+<li><a href="https://github.com/rockerBOO/awesome-neovim">Awesome Neovim plugins</a>: Una lista curada de plugins para Neovim.</li>
+<li><a href="https://github.com/rafamadriz/friendly-snippets">Friendly Snippets</a>: Una vasta colección de snippets para integrar con LuaSnip.</li>
+</ul>
+<h2>Foros y comunidad</h2>
+<ul>
+<li><a href="https://www.google.com/search?q=https://reddit.com/r/neovim">Reddit r/neovim</a>: Comunidad activa para discutir sobre Neovim.</li>
+<li><a href="https://www.google.com/search?q=https://matrix.to/%23/%23neovim:matrix.org">Matrix Neovim</a>: Un canal de chat para la comunidad de Neovim.</li>
+<li><a href="https://stackoverflow.com/questions/tagged/neovim">Stack Overflow</a>: Para preguntas técnicas específicas.</li>
+</ul>
+<h2>¿Dónde pedir ayuda?</h2>
+<ul>
+<li>Los <strong>canales de Discord</strong> y <strong>foros oficiales</strong> son los mejores lugares para dudas generales y soporte rápido.</li>
+<li>Para problemas específicos con un plugin, revisa los <strong>GitHub Issues</strong> del repositorio de ese plugin.</li>
+<li><strong>Reddit</strong> y <strong>Stack Overflow</strong> son excelentes para preguntas generales o problemas que puedan afectar a Neovim más allá de NvChad.</li>
+</ul>
+<h2>Repositorios recomendados para personalización avanzada</h2>
+<p>NvChad está construido sobre varios repositorios modulares que puedes explorar para llevar tu configuración al siguiente nivel:</p>
+<ul>
+<li><a href="https://www.google.com/search?q=https://github.com/NvChad/base46/blob/main/README.md"><strong>base46</strong></a>: Contiene los temas y utilidades de color para personalizar la apariencia de NvChad a fondo.</li>
+<li><a href="https://www.google.com/search?q=https://github.com/NvChad/nvcommunity/blob/main/README.md"><strong>nvcommunity</strong></a>: Una colección de plugins y módulos desarrollados por la comunidad para ampliar las funcionalidades de NvChad.</li>
+<li><a href="https://github.com/NvChad/starter/blob/main/README.md"><strong>starter</strong></a>: La plantilla base oficial de NvChad que clonaste al inicio. Útil para consultar la configuración por defecto.</li>
+<li><a href="https://github.com/NvChad/tinyvim/blob/main/README.md"><strong>tinyvim</strong></a>: Una configuración minimalista y un buen ejemplo para usuarios que prefieren construir un entorno desde cero.</li>
+<li><a href="https://www.google.com/search?q=https://github.com/NvChad/ui/blob/main/README.md"><strong>ui</strong></a>: Elementos visuales y utilidades para mejorar la interfaz de usuario de NvChad.</li>
+</ul>
+<p>Explora los <pre><code>README.md</code></pre> de estos repositorios para encontrar ejemplos y buenas prácticas que te ayudarán a profundizar en tu personalización.</p>
+
+  </main>
+</body>
+</html>
