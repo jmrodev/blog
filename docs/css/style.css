@@ -1,22 +1,22 @@
 /* ------------------ Variables y Temas ------------------ */
 :root {
   /* Colores */
-  --color-sidebar-bg: #fafbfc;
-  --color-border: #e5e7eb;
-  --color-link: #222;
-  --color-link-active-bg: #e5e7eb;
-  --color-link-active-text: #111;
-  --color-heading: #222;
-  --color-content-bg: #fff;
-  --color-text: #333;
-  --color-body-bg: #fff;
-  --color-code-bg: #f3f3f3;
-  --color-code-text: #c7254e;
-  --color-blockquote-bg: #f9f9f9;
-  --color-blockquote-border: #e5e7eb;
-  --color-blockquote-text: #666;
-  --color-pre-bg: #222;
-  --color-pre-text: #fff;
+  --color-sidebar-bg: #f3f4f6;
+  --color-border: #d1d5db;
+  --color-link: #5b7fa3;
+  --color-link-active-bg: #e3e8ee;
+  --color-link-active-text: #2d3a4a;
+  --color-heading: #3d405b;
+  --color-content-bg: #f7f8fa;
+  --color-text: #3d405b;
+  --color-body-bg: #f4f5f7;
+  --color-code-bg: #f0ece3;
+  --color-code-text: #5b7fa3;
+  --color-blockquote-bg: #eaf6fb;
+  --color-blockquote-border: #d1d5db;
+  --color-blockquote-text: #5b7fa3;
+  --color-pre-bg: #f0ece3;
+  --color-pre-text: #3d405b;
 
   /* Tipografía */
   --font-main: 'Inter', 'Segoe UI', Arial, sans-serif;
@@ -328,7 +328,9 @@ a:hover {
 
 #content pre,
 #content code {
-  max-width: var(--code-max-width);
+  max-width: 100%;
+  width: fit-content;
+  min-width: 0;
   overflow-x: auto;
   box-sizing: border-box;
   word-break: var(--code-word-break);
@@ -479,5 +481,32 @@ hr {
 
 .nav-folder-toggle[aria-expanded="true"] .arrow {
   transform: rotate(90deg);
+} 
+  
+/* ------------------ Botones generales ------------------ */
+button {
+  background: #393646;
+  color: #e0e1dd;
+  border: 1px solid #4b4453;
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+button:hover {
+  background: #4b4453;
+  color: #f6f1f1;
+  border-color: #a3b18a;
+}
+body.dark-mode button {
+  background: var(--color-link-active-bg);
+  color: var(--color-link-active-text);
+  border: 1px solid var(--color-border);
+}
+body.dark-mode button:hover {
+  background: var(--color-link);
+  color: var(--color-content-bg);
+  border-color: var(--color-link);
 } 
   
