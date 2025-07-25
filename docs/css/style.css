@@ -19,20 +19,20 @@
   --transition-base: 0.2s ease-in-out;
 
   /* --- Tema Claro (Light Mode) --- */
-  --color-sidebar-bg: #f3f4f6;
+  --color-sidebar-bg: #cad9f7;
   --color-border: #d1d5db;
   --color-link: #5b7fa3;
   --color-link-hover: #2d3a4a;
   --color-link-active-bg: #e3e8ee;
   --color-heading: #3d405b;
-  --color-content-bg: #f7f8fa;
+  --color-content-bg: #d1d4d8;
   --color-text: var(--color-text-light);
   --color-body-bg: var(--color-bg-light);
-  --color-code-bg: #f0ece3;
-  --color-code-text: #5b7fa3;
-  --color-pre-bg: #f0ece3;
-  --color-pre-text: #3d405b;
-  --color-blockquote-bg: #eaf6fb;
+  --color-code-bg: #173049;
+  --color-code-text: #f4f5f7;
+  --color-pre-bg: var(--color-code-bg);
+  --color-pre-text: var(--color-code-bg);
+  --color-blockquote-bg: #a0c5d4;
   --color-blockquote-border: #d1d5db;
   --color-blockquote-text: #5b7fa3;
 
@@ -46,10 +46,10 @@
   --dark-color-content-bg: #181a1b;
   --dark-color-text: var(--color-text-dark);
   --dark-color-body-bg: var(--color-bg-dark);
-  --dark-color-code-bg: #23272e;
-  --dark-color-code-text: #ffb86c;
-  --dark-color-pre-bg: #23272e;
-  --dark-color-pre-text: #fff;
+  --dark-color-code-bg: #5c616b;
+  --dark-color-code-text: #f0ee89;
+  --dark-color-pre-bg: var(--dark-color-code-bg);
+  --dark-color-pre-text: var(--dark-color-code-bg);
   --dark-color-blockquote-bg: #23272e;
   --dark-color-blockquote-border: #444;
   --dark-color-blockquote-text: #aaa;
