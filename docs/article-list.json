@@ -23,5 +23,15 @@
     "id": "javascript-modern",
     "title": "JavaScript Moderno: ES6+ y más allá",
     "path": "/articulos/basicos/javascript-modern.html"
+  },
+  {
+    "id": "english",
+    "title": "English",
+    "path": "/english.html"
+  },
+  {
+    "id": "spanish",
+    "title": "Sobre mí",
+    "path": "/spanish.html"
   }
 ]
