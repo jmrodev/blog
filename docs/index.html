@@ -8,12 +8,16 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <div class="mobile-header">
+    <button id="menu-toggle" class="menu-btn">☰</button>
+    <button id="theme-toggle" class="theme-btn">🌓</button>
+  </div>
   <div class="layout">
     <aside class="sidebar">
-      <button id="theme-toggle" class="theme-btn">🌓 Cambiar tema</button>
       <nav>
         <h3>Artículos</h3>
         <div id="nav-links">
+          <!-- Los enlaces se generan dinámicamente o se insertan aquí -->
           <ul class="nav-list nav-level-0"><li class="nav-folder">
         <button class="nav-folder-toggle" data-target="folder-zg97qjj4" aria-expanded="false">articulos <span class="arrow">▶</span></button>
         <div id="folder-zg97qjj4" class="nav-folder-children">
@@ -44,48 +48,83 @@
       </nav>
     </aside>
     <main id="content">
-      <h2>Selecciona un artículo</h2>
-      <p>Haz clic en un título para ver el contenido.</p>
+      <div class="article-placeholder">
+        <h1>Selecciona un artículo</h1>
+        <p>Haz clic en un título de la barra lateral para ver su contenido.</p>
+      </div>
     </main>
   </div>
   <script>
-    // SPA: Cargar el contenido del artículo en el main
-    document.getElementById('nav-links').addEventListener('click', async function(e) {
-      if (e.target.classList.contains('nav-link')) {
-        e.preventDefault();
-        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-        e.target.classList.add('active');
-        const articleId = e.target.getAttribute('data-article');
-        const res = await fetch('./' + articleId + '.html');
-        const html = await res.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const mainContent = doc.querySelector('main');
-        document.getElementById('content').innerHTML = mainContent ? mainContent.innerHTML : '<p>Error al cargar el artículo.</p>';
-      }
-      // Desplegar/cerrar submenús con animación suave
-      if (e.target.classList.contains('nav-folder-toggle')) {
-        e.preventDefault();
-        const targetId = e.target.getAttribute('data-target');
-        const el = document.getElementById(targetId);
-        if (el) {
-          const isOpen = el.classList.contains('open');
-          el.classList.toggle('open', !isOpen);
-          e.target.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+    document.addEventListener('DOMContentLoaded', () => {
+      const navLinks = document.getElementById('nav-links');
+      const content = document.getElementById('content');
+      const menuToggle = document.getElementById('menu-toggle');
+      const sidebar = document.querySelector('.sidebar');
+
+      // Cargar contenido de artículos
+      navLinks.addEventListener('click', async (e) => {
+        const link = e.target.closest('.nav-link');
+        if (link) {
+          e.preventDefault();
+          document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+
+          const articleId = link.getAttribute('data-article');
+          try {
+            const res = await fetch(`./${articleId}.html`);
+            if (!res.ok) throw new Error(`Error ${res.status}`);
+            const html = await res.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const mainContent = doc.querySelector('main');
+            content.innerHTML = mainContent ? mainContent.innerHTML : '<p>Error al cargar el artículo.</p>';
+          } catch (error) {
+            content.innerHTML = `<p>No se pudo cargar el artículo. ${error.message}</p>`;
+          }
         }
+
+        // Desplegar/cerrar submenús
+        const folderToggle = e.target.closest('.nav-folder-toggle');
+        if (folderToggle) {
+          e.preventDefault();
+          const targetId = folderToggle.getAttribute('data-target');
+          const el = document.getElementById(targetId);
+          if (el) {
+            const isOpen = el.classList.toggle('open');
+            folderToggle.setAttribute('aria-expanded', isOpen);
+          }
+        }
+      });
+
+      // Menú hamburguesa
+      menuToggle.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          sidebar.classList.toggle('open');
+        } else {
+          sidebar.classList.toggle('collapsed');
+        }
+      });
+
+      // Ocultar sidebar al hacer clic en un enlace en móvil
+      navLinks.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768 && e.target.closest('.nav-link')) {
+          sidebar.classList.remove('open');
+        }
+      });
+
+      // Tema oscuro/claro
+      const themeToggle = document.getElementById('theme-toggle');
+      const body = document.body;
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
       }
+      themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        const isDark = body.classList.contains('dark-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
     });
-  </script>
-  <script>
-  const themeToggle = document.getElementById('theme-toggle');
-  const body = document.body;
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark') body.classList.add('dark-mode');
-  themeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    const isDark = body.classList.contains('dark-mode');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  });
   </script>
 </body>
 </html>
