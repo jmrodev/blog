@@ -407,8 +407,52 @@ hr {
     padding: 6px 10px;
     font-size: 0.95em;
   }
-} 
-  
+}
+
+@media (max-width: 600px) {
+  .layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    padding: calc(var(--sidebar-padding-v) / 2) 2vw;
+    border-radius: 0 0 var(--main-radius) var(--main-radius);
+  }
+  #content {
+    padding: 10vw 3vw;
+    border-radius: 0 0 var(--main-radius) var(--main-radius);
+    min-height: auto;
+  }
+  .theme-btn {
+    top: 8px;
+    right: 8px;
+    padding: 8px 14px;
+    font-size: 1.1em;
+  }
+  button {
+    font-size: 1.1em;
+    padding: 10px 18px;
+  }
+  #content pre,
+  #content code,
+  #content table {
+    max-width: 100vw;
+    width: 100%;
+    font-size: 0.98em;
+  }
+  #content img {
+    max-width: 100vw;
+    height: auto;
+  }
+  h1, h2, h3 {
+    margin-left: 0 !important;
+  }
+}
+
 /* Estilo para la lista de navegación anidada */
 .nav-list {
   list-style: none;
@@ -481,8 +525,8 @@ hr {
 
 .nav-folder-toggle[aria-expanded="true"] .arrow {
   transform: rotate(90deg);
-} 
-  
+}
+
 /* ------------------ Botones generales ------------------ */
 button {
   background: #393646;
