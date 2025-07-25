@@ -389,7 +389,7 @@ hr {
 /* ------------------ Responsive ------------------ */
 @media (max-width: 768px) {
   :root {
-    --font-size-base: 1rem; /* Aumentamos el tamaño base para móvil */
+    --font-size-base: 1.5rem; /* Aumentamos el tamaño base para móvil */
   }
 
   .mobile-header {
