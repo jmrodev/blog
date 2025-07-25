@@ -94,6 +94,7 @@
   --mobile-breakpoint: 768px;
   --mobile-sidebar-height: auto;
   --mobile-main-padding: var(--space-lg);
+  --content-width: 80%;
 }
 
 body.dark-mode {
@@ -233,6 +234,8 @@ a:hover {
 /* ------------------ Main Content ------------------ */
 #content {
   flex: 1;
+  width: var(--content-width);
+  margin: 0 auto;
   padding: var(--space-xxl) var(--space-xxl);
   background: var(--color-content-bg);
   min-height: 100vh;
