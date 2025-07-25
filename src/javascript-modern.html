@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Moderno: ES6+ y más allá</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+       
+  <main>
+    <h1>JavaScript Moderno: ES6+ y más allá</h1>
+    <h1>JavaScript Moderno: ES6+ y más allá</h1>
+<h2>Introducción</h2>
+<p>JavaScript ha evolucionado significativamente desde su creación. Las versiones modernas (ES6+) han introducido características que han transformado la forma en que escribimos código.</p>
+<h2>Características principales de ES6+</h2>
+<h3>1. Arrow Functions</h3>
+<p>Sintaxis más concisa para funciones:</p>
+<pre><code class="language-javascript">// Función tradicional
+function sumar(a, b) {
+    return a + b;
+}
+
+// Arrow function
+const sumar = (a, b) =&gt; a + b;
+
+// Arrow function con múltiples líneas
+const procesarDatos = (datos) =&gt; {
+    const resultado = datos.map(item =&gt; item * 2);
+    return resultado.filter(item =&gt; item &gt; 10);
+};
+</code></pre>
+<h3>2. Destructuring</h3>
+<p>Extraer valores de objetos y arrays:</p>
+<pre><code class="language-javascript">// Destructuring de objetos
+const usuario = { nombre: &#39;Juan&#39;, edad: 30, ciudad: &#39;Madrid&#39; };
+const { nombre, edad } = usuario;
+console.log(nombre); // &#39;Juan&#39;
+
+// Destructuring de arrays
+const colores = [&#39;rojo&#39;, &#39;verde&#39;, &#39;azul&#39;];
+const [primero, segundo] = colores;
+console.log(primero); // &#39;rojo&#39;
+
+// Destructuring en parámetros de función
+const mostrarUsuario = ({ nombre, edad }) =&gt; {
+    console.log(`${nombre} tiene ${edad} años`);
+};
+</code></pre>
+<h3>3. Template Literals</h3>
+<p>Strings con interpolación:</p>
+<pre><code class="language-javascript">const nombre = &#39;María&#39;;
+const edad = 25;
+
+// Antes
+const mensaje = nombre + &#39; tiene &#39; + edad + &#39; años&#39;;
+
+// Ahora
+const mensaje = `${nombre} tiene ${edad} años`;
+
+// Multilínea
+const html = `
+    &lt;div class=&quot;usuario&quot;&gt;
+        &lt;h2&gt;${nombre}&lt;/h2&gt;
+        &lt;p&gt;Edad: ${edad}&lt;/p&gt;
+    &lt;/div&gt;
+`;
+</code></pre>
+<h3>4. Spread y Rest Operators</h3>
+<pre><code class="language-javascript">// Spread operator
+const numeros = [1, 2, 3];
+const masNumeros = [...numeros, 4, 5]; // [1, 2, 3, 4, 5]
+
+const persona = { nombre: &#39;Ana&#39;, edad: 28 };
+const personaCompleta = { ...persona, ciudad: &#39;Barcelona&#39; };
+
+// Rest operator
+const sumar = (...args) =&gt; {
+    return args.reduce((total, num) =&gt; total + num, 0);
+};
+
+console.log(sumar(1, 2, 3, 4, 5)); // 15
+</code></pre>
+<h3>5. Promesas y Async/Await</h3>
+<pre><code class="language-javascript">// Promesas
+const obtenerDatos = () =&gt; {
+    return new Promise((resolve, reject) =&gt; {
+        setTimeout(() =&gt; {
+            const datos = { id: 1, nombre: &#39;Producto&#39; };
+            resolve(datos);
+        }, 1000);
+    });
+};
+
+// Async/Await
+const cargarDatos = async () =&gt; {
+    try {
+        const datos = await obtenerDatos();
+        console.log(&#39;Datos cargados:&#39;, datos);
+        return datos;
+    } catch (error) {
+        console.error(&#39;Error:&#39;, error);
+    }
+};
+
+// Múltiples promesas
+const cargarTodo = async () =&gt; {
+    const [usuarios, productos] = await Promise.all([
+        fetch(&#39;/api/usuarios&#39;),
+        fetch(&#39;/api/productos&#39;)
+    ]);
+    
+    return {
+        usuarios: await usuarios.json(),
+        productos: await productos.json()
+    };
+};
+</code></pre>
+<h3>6. Módulos ES6</h3>
+<pre><code class="language-javascript">// math.js
+export const sumar = (a, b) =&gt; a + b;
+export const restar = (a, b) =&gt; a - b;
+
+export default class Calculadora {
+    multiplicar(a, b) {
+        return a * b;
+    }
+}
+
+// main.js
+import Calculadora, { sumar, restar } from &#39;./math.js&#39;;
+
+const calc = new Calculadora();
+console.log(sumar(5, 3)); // 8
+console.log(calc.multiplicar(4, 2)); // 8
+</code></pre>
+<h3>7. Clases</h3>
+<pre><code class="language-javascript">class Usuario {
+    constructor(nombre, email) {
+        this.nombre = nombre;
+        this.email = email;
+    }
+    
+    saludar() {
+        return `¡Hola, soy ${this.nombre}!`;
+    }
+    
+    static crearAdmin(nombre, email) {
+        const admin = new Usuario(nombre, email);
+        admin.esAdmin = true;
+        return admin;
+    }
+}
+
+class Empleado extends Usuario {
+    constructor(nombre, email, salario) {
+        super(nombre, email);
+        this.salario = salario;
+    }
+    
+    obtenerInfo() {
+        return `${this.saludar()} Mi salario es ${this.salario}`;
+    }
+}
+</code></pre>
+<h2>Características más recientes</h2>
+<h3>Optional Chaining (ES2020)</h3>
+<pre><code class="language-javascript">const usuario = {
+    perfil: {
+        direccion: {
+            calle: &#39;Calle Principal&#39;
+        }
+    }
+};
+
+// Antes
+const calle = usuario.perfil &amp;&amp; usuario.perfil.direccion &amp;&amp; usuario.perfil.direccion.calle;
+
+// Ahora
+const calle = usuario.perfil?.direccion?.calle;
+</code></pre>
+<h3>Nullish Coalescing (ES2020)</h3>
+<pre><code class="language-javascript">const valor = null;
+const valorPorDefecto = valor ?? &#39;valor por defecto&#39;;
+console.log(valorPorDefecto); // &#39;valor por defecto&#39;
+</code></pre>
+<h2>Herramientas modernas</h2>
+<ul>
+<li><strong>Babel</strong>: Transpilador para compatibilidad</li>
+<li><strong>Webpack/Vite</strong>: Bundlers modernos</li>
+<li><strong>ESLint</strong>: Linter para mantener calidad de código</li>
+<li><strong>Prettier</strong>: Formateador de código</li>
+</ul>
+<h2>Conclusión</h2>
+<p>JavaScript moderno ofrece herramientas poderosas que hacen el código más legible, mantenible y eficiente. Es esencial mantenerse actualizado con las nuevas características para escribir código de calidad.</p>
+<p>¡Explora estas características y mejora tu código JavaScript! </p>
+
+  </main>
+</body>
+</html>

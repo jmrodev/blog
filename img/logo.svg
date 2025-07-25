@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="30" cy="30" r="28" fill="white" stroke="#333333" stroke-width="2"/>
-  <text style="white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 28px;" x="10.143" y="15.764"><tspan x="10.142999649047852" dy="1em">​</tspan><tspan x="10.142999649047852" dy="1em">​</tspan></text>
-  <text style="font-family: Roboto; font-size: 18px; white-space: pre; transform-box: fill-box; transform-origin: 62.3562% 64.4364%;" transform="matrix(0.986382, 0.230057, -0.001315, 1.0135, 0.281052, -4.774491)" x="-8.544" y="5.75" dx="16.879 -1.803 -1.967 -0.817" dy="27.052 6.05 5.476 4.23">JMRO</text>
-</svg>

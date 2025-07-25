@@ -5,9 +5,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Neovim: Todo en uno</title>
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+       
   <main>
     <h1>Neovim: Todo en uno</h1>
     <h1>Neovim: Todo en uno</h1>
@@ -677,26 +678,26 @@ map(&#39;n&#39;, &#39;&lt;Leader&gt;dc&#39;, &quot;:lua require(&#39;dap.ext.vsc
 <h3>Tips para SSH</h3>
 <ul>
 <li><strong>Túnel SSH</strong>: Para depurar en un servidor remoto, crea un túnel SSH seguro que reenvíe el puerto de depuración del servidor a tu máquina local:
-<code>ssh -L 5678:localhost:5678 usuario@servidor</code></li>
-<li><strong>Verifica el pathMapping</strong>: Asegúrate de que <code>remoteRoot</code> en tu <code>launch.json</code> apunte al path absoluto correcto de tu código en el servidor remoto.</li>
+<pre><code>ssh -L 5678:localhost:5678 usuario@servidor</code></pre></li>
+<li><strong>Verifica el pathMapping</strong>: Asegúrate de que <pre><code>remoteRoot</code></pre> en tu <pre><code>launch.json</code></pre> apunte al path absoluto correcto de tu código en el servidor remoto.</li>
 </ul>
 <h2>Errores comunes y solución</h2>
 <ul>
-<li><strong>&quot;Breakpoint Unverified&quot;</strong>: Este es el error más común en depuración remota. Generalmente indica que <code>nvim-dap</code> no puede correlacionar la línea de código local con la línea correspondiente en el entorno remoto.<ul>
-<li><strong>Solución</strong>: Verifica que tus <code>pathMappings</code> sean <strong>exactamente correctos</strong> y que el código remoto coincida con el local. Pequeñas diferencias en mayúsculas/minúsculas o rutas relativas pueden causar esto.</li>
+<li><strong>&quot;Breakpoint Unverified&quot;</strong>: Este es el error más común en depuración remota. Generalmente indica que <pre><code>nvim-dap</code></pre> no puede correlacionar la línea de código local con la línea correspondiente en el entorno remoto.<ul>
+<li><strong>Solución</strong>: Verifica que tus <pre><code>pathMappings</code></pre> sean <strong>exactamente correctos</strong> y que el código remoto coincida con el local. Pequeñas diferencias en mayúsculas/minúsculas o rutas relativas pueden causar esto.</li>
 </ul>
 </li>
 <li><strong>No se conecta al depurador</strong>:<ul>
-<li><strong>Solución</strong>: Revisa los logs de <code>nvim-dap</code> con <code>:DapShowLog</code> para ver mensajes de error detallados. Asegúrate de que el puerto esté abierto y que no haya firewalls bloqueando la conexión.</li>
+<li><strong>Solución</strong>: Revisa los logs de <pre><code>nvim-dap</code></pre> con <pre><code>:DapShowLog</code></pre> para ver mensajes de error detallados. Asegúrate de que el puerto esté abierto y que no haya firewalls bloqueando la conexión.</li>
 </ul>
 </li>
 </ul>
 <h2>Tips y buenas prácticas</h2>
 <ul>
-<li><strong>Instala los adaptadores DAP</strong>: Además de <code>nvim-dap</code>, necesitas instalar el adaptador específico para tu lenguaje (ej., <code>nvim-dap-python</code> para Python, <code>nvim-dap-js</code> para JavaScript). Mason te ayudará con esto.</li>
+<li><strong>Instala los adaptadores DAP</strong>: Además de <pre><code>nvim-dap</code></pre>, necesitas instalar el adaptador específico para tu lenguaje (ej., <pre><code>nvim-dap-python</code></pre> para Python, <pre><code>nvim-dap-js</code></pre> para JavaScript). Mason te ayudará con esto.</li>
 <li><strong>Consulta la documentación de cada adaptador</strong>: Los adaptadores pueden tener configuraciones específicas o requisitos de instalación adicionales.</li>
 <li><strong>Usa mappings</strong>: Define tus atajos para iniciar, pausar, poner breakpoints y ver variables fácilmente. Esto acelera drásticamente tu flujo de trabajo de depuración.</li>
-<li><strong>Siempre carga el <code>launch.json</code></strong>: Acostúmbrate a ejecutar <code>:lua require(&#39;dap.ext.vscode&#39;).load_launchjs()</code> antes de iniciar una sesión de depuración que dependa de este archivo.</li>
+<li><strong>Siempre carga el <pre><code>launch.json</code></pre></strong>: Acostúmbrate a ejecutar <pre><code>:lua require(&#39;dap.ext.vscode&#39;).load_launchjs()</code></pre> antes de iniciar una sesión de depuración que dependa de este archivo.</li>
 <li><strong>Depuración remota</strong>: Asegúrate de que el puerto de depuración esté abierto y accesible desde donde ejecutas Neovim.</li>
 </ul>
 <h2>Recursos útiles</h2>
@@ -714,30 +715,30 @@ map(&#39;n&#39;, &#39;&lt;Leader&gt;dc&#39;, &quot;:lua require(&#39;dap.ext.vsc
 <ul>
 <li><strong>Lee la documentación oficial</strong>: La documentación de <a href="https://www.google.com/search?q=https://nvchad.com/docs/config">NvChad</a> y <a href="https://neovim.io/doc/user/index.html">Neovim</a> es tu mejor recurso. Contiene información detallada y ejemplos.</li>
 <li><strong>Haz cambios de uno en uno</strong>: Si estás personalizando tu configuración, añade o modifica un elemento a la vez y prueba que funciona. Esto facilita la identificación de la causa si algo falla.</li>
-<li><strong>Haz copias de seguridad regularmente</strong>: Antes de realizar grandes cambios o actualizaciones, haz una copia de seguridad de tu directorio <code>~/.config/nvim</code>.</li>
-<li><strong>Usa <code>:checkhealth</code></strong>: Este comando integrado en Neovim te ayuda a diagnosticar problemas comunes relacionados con dependencias, LSP, y más.</li>
+<li><strong>Haz copias de seguridad regularmente</strong>: Antes de realizar grandes cambios o actualizaciones, haz una copia de seguridad de tu directorio <pre><code>~/.config/nvim</code></pre>.</li>
+<li><strong>Usa <pre><code>:checkhealth</code></pre></strong>: Este comando integrado en Neovim te ayuda a diagnosticar problemas comunes relacionados con dependencias, LSP, y más.</li>
 <li><strong>Consulta foros y comunidades</strong>: Si te atascas, la comunidad de Neovim y NvChad es muy activa. No dudes en buscar ayuda.</li>
 </ul>
 <h2>Solución de problemas comunes</h2>
 <ul>
 <li><strong>El tema no cambia</strong>:<ul>
-<li><strong>Solución</strong>: Revisa que el nombre del tema esté bien escrito en <code>chadrc.lua</code> (sensible a mayúsculas/minúsculas). Luego, guarda el archivo y reinicia Neovim.</li>
+<li><strong>Solución</strong>: Revisa que el nombre del tema esté bien escrito en <pre><code>chadrc.lua</code></pre> (sensible a mayúsculas/minúsculas). Luego, guarda el archivo y reinicia Neovim.</li>
 </ul>
 </li>
 <li><strong>Un plugin no funciona o no carga</strong>:<ul>
-<li><strong>Solución</strong>: Ejecuta <code>:Lazy sync</code> para asegurarte de que el plugin esté instalado y actualizado. Verifica su configuración en <code>nvim/lua/plugins/</code> y consulta la documentación específica del plugin para posibles dependencias o requisitos.</li>
+<li><strong>Solución</strong>: Ejecuta <pre><code>:Lazy sync</code></pre> para asegurarte de que el plugin esté instalado y actualizado. Verifica su configuración en <pre><code>nvim/lua/plugins/</code></pre> y consulta la documentación específica del plugin para posibles dependencias o requisitos.</li>
 </ul>
 </li>
 <li><strong>Errores de LSP (autocompletado, diagnósticos)</strong>:<ul>
-<li><strong>Solución</strong>: Primero, verifica que el servidor LSP esté correctamente instalado a través de <code>:Mason</code> y que su nombre exacto esté listado en <code>nvim/lua/configs/lspconfig.lua</code>. Luego, ejecuta <code>:LspRestart</code> o reinicia Neovim. Usa <code>:LspInfo</code> para depurar el estado del servidor en el buffer actual.</li>
+<li><strong>Solución</strong>: Primero, verifica que el servidor LSP esté correctamente instalado a través de <pre><code>:Mason</code></pre> y que su nombre exacto esté listado en <pre><code>nvim/lua/configs/lspconfig.lua</code></pre>. Luego, ejecuta <pre><code>:LspRestart</code></pre> o reinicia Neovim. Usa <pre><code>:LspInfo</code></pre> para depurar el estado del servidor en el buffer actual.</li>
 </ul>
 </li>
 <li><strong>Problemas con atajos de teclado (mappings)</strong>:<ul>
-<li><strong>Solución</strong>: Si un atajo no funciona o hace algo inesperado, usa <code>:NvCheatsheet</code> o <code>:Telescope keymaps</code> para ver si hay conflictos o si se ha sobrescrito un atajo. Revisa la sintaxis en <code>nvim/lua/mappings.lua</code>.</li>
+<li><strong>Solución</strong>: Si un atajo no funciona o hace algo inesperado, usa <pre><code>:NvCheatsheet</code></pre> o <pre><code>:Telescope keymaps</code></pre> para ver si hay conflictos o si se ha sobrescrito un atajo. Revisa la sintaxis en <pre><code>nvim/lua/mappings.lua</code></pre>.</li>
 </ul>
 </li>
 <li><strong>Depuración no funciona (nvim-dap)</strong>:<ul>
-<li><strong>Solución</strong>: Revisa los logs de depuración con <code>:DapShowLog</code>. Asegúrate de que el adaptador DAP para tu lenguaje esté instalado via Mason. Si es depuración remota, verifica los <code>pathMappings</code> en tu <code>launch.json</code> y que los puertos estén correctamente expuestos y accesibles.</li>
+<li><strong>Solución</strong>: Revisa los logs de depuración con <pre><code>:DapShowLog</code></pre>. Asegúrate de que el adaptador DAP para tu lenguaje esté instalado via Mason. Si es depuración remota, verifica los <pre><code>pathMappings</code></pre> en tu <pre><code>launch.json</code></pre> y que los puertos estén correctamente expuestos y accesibles.</li>
 </ul>
 </li>
 </ul>
@@ -779,7 +780,7 @@ map(&#39;n&#39;, &#39;&lt;Leader&gt;dc&#39;, &quot;:lua require(&#39;dap.ext.vsc
 <li><a href="https://github.com/NvChad/tinyvim/blob/main/README.md"><strong>tinyvim</strong></a>: Una configuración minimalista y un buen ejemplo para usuarios que prefieren construir un entorno desde cero.</li>
 <li><a href="https://www.google.com/search?q=https://github.com/NvChad/ui/blob/main/README.md"><strong>ui</strong></a>: Elementos visuales y utilidades para mejorar la interfaz de usuario de NvChad.</li>
 </ul>
-<p>Explora los <code>README.md</code> de estos repositorios para encontrar ejemplos y buenas prácticas que te ayudarán a profundizar en tu personalización.</p>
+<p>Explora los <pre><code>README.md</code></pre> de estos repositorios para encontrar ejemplos y buenas prácticas que te ayudarán a profundizar en tu personalización.</p>
 
   </main>
 </body>
