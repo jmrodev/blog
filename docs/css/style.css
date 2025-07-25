@@ -122,6 +122,18 @@
   --nav-folder-toggle-color: #888;
   --nav-folder-toggle-size: 0.9em;
   --nav-folder-toggle-hover: #222;
+
+  --mobile-padding-v: 10vw;
+  --mobile-padding-h: 3vw;
+  --mobile-sidebar-padding-v: calc(var(--sidebar-padding-v) / 2);
+  --mobile-sidebar-padding-h: 2vw;
+  --mobile-btn-font-size: 1.1em;
+  --mobile-btn-padding-v: 10px;
+  --mobile-btn-padding-h: 18px;
+  --mobile-theme-btn-padding-v: 8px;
+  --mobile-theme-btn-padding-h: 14px;
+  --mobile-theme-btn-font-size: 1.1em;
+  --mobile-content-font-size: 0.98em;
 }
 
 body.dark-mode {
@@ -413,36 +425,37 @@ hr {
   .layout {
     flex-direction: column;
   }
+  
   .sidebar {
     width: 100%;
     height: auto;
     position: static;
     border-right: none;
     border-bottom: 1px solid var(--color-border);
-    padding: calc(var(--sidebar-padding-v) / 2) 2vw;
+    padding: var(--mobile-sidebar-padding-v, 10px) var(--mobile-sidebar-padding-h, 2vw);
     border-radius: 0 0 var(--main-radius) var(--main-radius);
   }
   #content {
-    padding: 10vw 3vw;
+    padding: var(--mobile-padding-v, 10vw) var(--mobile-padding-h, 3vw);
     border-radius: 0 0 var(--main-radius) var(--main-radius);
     min-height: auto;
   }
   .theme-btn {
     top: 8px;
     right: 8px;
-    padding: 8px 14px;
-    font-size: 1.1em;
+    padding: var(--mobile-theme-btn-padding-v, 8px) var(--mobile-theme-btn-padding-h, 14px);
+    font-size: var(--mobile-theme-btn-font-size, 1.1em);
   }
   button {
-    font-size: 1.1em;
-    padding: 10px 18px;
+    font-size: var(--mobile-btn-font-size, 1.1em);
+    padding: var(--mobile-btn-padding-v, 10px) var(--mobile-btn-padding-h, 18px);
   }
   #content pre,
   #content code,
   #content table {
     max-width: 100vw;
     width: 100%;
-    font-size: 0.98em;
+    font-size: var(--mobile-content-font-size, 0.98em);
   }
   #content img {
     max-width: 100vw;
