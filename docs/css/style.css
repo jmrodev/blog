@@ -388,6 +388,10 @@ hr {
 
 /* ------------------ Responsive ------------------ */
 @media (max-width: 768px) {
+  :root {
+    --font-size-base: 1rem; /* Aumentamos el tamaño base para móvil */
+  }
+
   .mobile-header {
     display: flex;
     justify-content: space-between;
