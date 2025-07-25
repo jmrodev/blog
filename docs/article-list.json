@@ -1,0 +1,42 @@
+[
+  {
+    "id": "trucos",
+    "title": "Trucos avanzados",
+    "path": "/articulos/avanzados/trucos.html"
+  },
+  {
+    "id": "primeros-pasos",
+    "title": "Primeros pasos",
+    "path": "/articulos/basicos/primeros-pasos.html"
+  },
+  {
+    "id": "introduccion",
+    "title": "Introducción a los artículos",
+    "path": "/articulos/introduccion.html"
+  },
+  {
+    "id": "css-grid",
+    "title": "CSS Grid: El sistema de layout del futuro",
+    "path": "/css-grid.html"
+  },
+  {
+    "id": "getting-started",
+    "title": "Getting Started con Desarrollo Web",
+    "path": "/getting-started.html"
+  },
+  {
+    "id": "javascript-modern",
+    "title": "JavaScript Moderno: ES6+ y más allá",
+    "path": "/javascript-modern.html"
+  },
+  {
+    "id": "nvim",
+    "title": "Neovim: Todo en uno",
+    "path": "/nvim.html"
+  },
+  {
+    "id": "guia",
+    "title": "Guía de uso",
+    "path": "/tutoriales/guia.html"
+  }
+]

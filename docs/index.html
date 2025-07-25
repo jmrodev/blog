@@ -10,15 +10,31 @@
 <body>
   <div class="layout">
     <aside class="sidebar">
-    <button id="theme-toggle" class="theme-btn">🌓 Cambiar tema</button>
-
+      <button id="theme-toggle" class="theme-btn">🌓 Cambiar tema</button>
       <nav>
         <h3>Artículos</h3>
         <div id="nav-links">
-          <a href="#" class="nav-link" data-article="css-grid">CSS Grid: El sistema de layout del futuro</a>
-<a href="#" class="nav-link" data-article="getting-started">Getting Started con Desarrollo Web</a>
-<a href="#" class="nav-link" data-article="javascript-modern">JavaScript Moderno: ES6+ y más allá</a>
-<a href="#" class="nav-link" data-article="nvim">Neovim: Todo en uno</a>
+          <ul class="nav-list nav-level-0"><li class="nav-folder">
+        <button class="nav-folder-toggle" data-target="folder-0o1s8xkb" aria-expanded="false">articulos <span class="arrow">▶</span></button>
+        <div id="folder-0o1s8xkb" class="nav-folder-children">
+          <ul class="nav-list nav-level-1"><li class="nav-folder">
+        <button class="nav-folder-toggle" data-target="folder-v8jh0tyx" aria-expanded="false">avanzados <span class="arrow">▶</span></button>
+        <div id="folder-v8jh0tyx" class="nav-folder-children">
+          <ul class="nav-list nav-level-2"><li><a href="#" class="nav-link" data-article="articulos/avanzados/trucos">Trucos avanzados</a></li></ul>
+        </div>
+      </li><li class="nav-folder">
+        <button class="nav-folder-toggle" data-target="folder-hil9okj4" aria-expanded="false">basicos <span class="arrow">▶</span></button>
+        <div id="folder-hil9okj4" class="nav-folder-children">
+          <ul class="nav-list nav-level-2"><li><a href="#" class="nav-link" data-article="articulos/basicos/primeros-pasos">Primeros pasos</a></li></ul>
+        </div>
+      </li><li><a href="#" class="nav-link" data-article="articulos/introduccion">Introducción a los artículos</a></li></ul>
+        </div>
+      </li><li><a href="#" class="nav-link" data-article="css-grid">CSS Grid: El sistema de layout del futuro</a></li><li><a href="#" class="nav-link" data-article="getting-started">Getting Started con Desarrollo Web</a></li><li><a href="#" class="nav-link" data-article="javascript-modern">JavaScript Moderno: ES6+ y más allá</a></li><li><a href="#" class="nav-link" data-article="nvim">Neovim: Todo en uno</a></li><li class="nav-folder">
+        <button class="nav-folder-toggle" data-target="folder-vflszxdl" aria-expanded="false">tutoriales <span class="arrow">▶</span></button>
+        <div id="folder-vflszxdl" class="nav-folder-children">
+          <ul class="nav-list nav-level-1"><li><a href="#" class="nav-link" data-article="tutoriales/guia">Guía de uso</a></li></ul>
+        </div>
+      </li></ul>
         </div>
       </nav>
     </aside>
@@ -32,36 +48,39 @@
     document.getElementById('nav-links').addEventListener('click', async function(e) {
       if (e.target.classList.contains('nav-link')) {
         e.preventDefault();
-        // Quitar clase activa de todos
         document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
         e.target.classList.add('active');
-        // Cargar el HTML del artículo
         const articleId = e.target.getAttribute('data-article');
         const res = await fetch('./' + articleId + '.html');
         const html = await res.text();
-        // Extraer solo el contenido del <main> del HTML cargado
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
         const mainContent = doc.querySelector('main');
         document.getElementById('content').innerHTML = mainContent ? mainContent.innerHTML : '<p>Error al cargar el artículo.</p>';
       }
+      // Desplegar/cerrar submenús con animación suave
+      if (e.target.classList.contains('nav-folder-toggle')) {
+        e.preventDefault();
+        const targetId = e.target.getAttribute('data-target');
+        const el = document.getElementById(targetId);
+        if (el) {
+          const isOpen = el.classList.contains('open');
+          el.classList.toggle('open', !isOpen);
+          e.target.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+        }
+      }
     });
   </script>
-
   <script>
   const themeToggle = document.getElementById('theme-toggle');
   const body = document.body;
-
-  // Establecer el tema guardado
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark') body.classList.add('dark-mode');
-
   themeToggle.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
     const isDark = body.classList.contains('dark-mode');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
   });
-</script>
-
+  </script>
 </body>
 </html>

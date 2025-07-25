@@ -112,6 +112,16 @@
   --code-max-width: 100%;
   --code-white-space: pre-wrap;
   --code-word-break: break-word;
+
+  /* --- Variables para submenús colapsables --- */
+  --nav-folder-bg: #f3f4f6;
+  --nav-folder-bg-active: #e5e7eb;
+  --nav-folder-radius: 5px;
+  --nav-folder-padding: 6px 10px;
+  --nav-folder-indent: 16px;
+  --nav-folder-toggle-color: #888;
+  --nav-folder-toggle-size: 0.9em;
+  --nav-folder-toggle-hover: #222;
 }
 
 body.dark-mode {
@@ -395,5 +405,79 @@ hr {
     padding: 6px 10px;
     font-size: 0.95em;
   }
+} 
+  
+/* Estilo para la lista de navegación anidada */
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.nav-folder {
+  margin-bottom: 4px;
+}
+
+.nav-folder-toggle {
+  background: var(--nav-folder-bg);
+  color: var(--nav-folder-toggle-color);
+  border: none;
+  border-radius: var(--nav-folder-radius);
+  padding: var(--nav-folder-padding);
+  width: 100%;
+  text-align: left;
+  font-size: var(--nav-folder-toggle-size);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-folder-toggle:hover,
+.nav-folder-toggle:focus {
+  background: var(--nav-folder-bg-active);
+  color: var(--nav-folder-toggle-hover);
+}
+
+.nav-folder-children {
+  margin-left: var(--nav-folder-indent);
+  margin-top: 2px;
+  border-left: 2px solid var(--color-border, #e5e7eb);
+  padding-left: 8px;
+  /* Animación suave */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(.4,0,.2,1), padding 0.3s;
+  will-change: max-height;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.nav-folder-children.open {
+  max-height: 500px; /* Suficiente para la mayoría de submenús */
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.nav-level-1 .nav-folder-toggle { font-weight: 600; }
+.nav-level-2 .nav-folder-toggle { font-weight: 500; font-size: 0.95em; }
+.nav-level-3 .nav-folder-toggle { font-weight: 400; font-size: 0.92em; }
+
+.nav-list .nav-link {
+  margin-left: 0;
+  padding-left: 8px;
+  border-radius: 4px;
+  font-size: 0.98em;
+}
+
+/* Flecha animada para el botón de carpeta */
+.nav-folder-toggle .arrow {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.nav-folder-toggle[aria-expanded="true"] .arrow {
+  transform: rotate(90deg);
 } 
   
