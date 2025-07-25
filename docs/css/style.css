@@ -109,6 +109,9 @@
   --ml-img: calc(var(--ml-base) + 8 * var(--ml-step));
   --ml-hr: calc(var(--ml-base) + 9 * var(--ml-step));
   --ml-table: calc(var(--ml-base) + 10 * var(--ml-step));
+  --code-max-width: 100%;
+  --code-white-space: pre-wrap;
+  --code-word-break: break-word;
 }
 
 body.dark-mode {
@@ -311,6 +314,15 @@ a:hover {
   color: var(--color-pre-text);
   margin-bottom: var(--space-pre);
   margin-left: var(--ml-pre);
+}
+
+#content pre,
+#content code {
+  max-width: var(--code-max-width);
+  overflow-x: auto;
+  box-sizing: border-box;
+  word-break: var(--code-word-break);
+  white-space: var(--code-white-space);
 }
 
 #content blockquote {
